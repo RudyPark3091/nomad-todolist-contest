@@ -14,18 +14,21 @@ class Calendar {
   constructor($target) {
     this.setDate(new Date());
     this.$target = $target;
-    this.init(this.date, true);
+    this.init(this.date);
     $target.appendChild(this.$container);
   }
 
   handlePrevMonth(e) {
     const _month = +e.target.dataset.month;
     const _year = +e.target.dataset.year;
+    const $next = document.querySelector(".calendar-next");
 
     const _prevYear = _month === 0 ? _year - 1 : _year;
     const _prevMonth = _month === 0 ? 11 : _month - 1;
     e.target.dataset.year = _prevYear;
     e.target.dataset.month = _prevMonth;
+    $next.dataset.year = _prevYear;
+    $next.dataset.month = _prevMonth;
 
     const _d = new Date(_prevYear, _prevMonth);
     const _first = _d.getDay();
@@ -42,9 +45,13 @@ class Calendar {
       _days.push(i);
     }
 
+    let _today = 0;
+    if (_prevMonth === new Date().getMonth())
+      _today = new Date().getDate();
     _days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
+      if (_today && day === _today) $div.classList.add("calendar-today");
       $target.appendChild($div);
     });
   }
@@ -52,11 +59,14 @@ class Calendar {
   handleNextMonth(e) {
     const _month = +e.target.dataset.month;
     const _year = +e.target.dataset.year;
+    const $prev = document.querySelector(".calendar-prev");
 
     const _nextYear = _month === 11 ? _year + 1 : _year;
     const _nextMonth = _month === 11 ? 0 : _month + 1;
     e.target.dataset.year = _nextYear;
     e.target.dataset.month = _nextMonth;
+    $prev.dataset.year = _nextYear;
+    $prev.dataset.month = _nextMonth;
 
     const _d = new Date(_nextYear, _nextMonth);
     const _first = _d.getDay();
@@ -73,14 +83,18 @@ class Calendar {
       _days.push(i);
     }
 
+    let _today = 0;
+    if (_nextMonth === new Date().getMonth())
+      _today = new Date().getDate();
     _days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
+      if (_today && day === _today) $div.classList.add("calendar-today");
       $target.appendChild($div);
     });
   }
 
-  init(d, isThisMonth) {
+  init(d) {
     const $container = document.createElement("div");
     $container.classList.add("calendar-container");
 
@@ -104,7 +118,7 @@ class Calendar {
     days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
-      if (isThisMonth && day === today.getDay())
+      if (day === today.getDay())
         $div.classList.add("calendar-today");
       $container.appendChild($div);
     })

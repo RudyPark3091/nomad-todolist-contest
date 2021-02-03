@@ -1,3 +1,18 @@
+#calendar {
+  display: flex;
+}
+
+#calendar button {
+  width: 5vw;
+  color: #fff;
+  background-color: #444;
+  border: none;
+}
+
+#calendar button:focus {
+  outline: none;
+}
+
 .calendar-container {
   width: 90vw;
   height: 90vh;
@@ -8,7 +23,6 @@
 }
 
 .calendar-container > div {
-  border: 1px solid coral;
   display: flex;
   justify-content: center;
   align-items: center;
