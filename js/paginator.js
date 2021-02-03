@@ -7,6 +7,10 @@ class Paginator {
     this.count = 0;
     // present scroll amount
     this.H = 0;
+    window.onload = _ => {
+      document.body.style.overflowY = "scroll";
+      this.H = window.scrollY;
+    }
     // amount of pixel to activate scroll
     this.OFFSET = 1;
     // variable for scroll debouncing
