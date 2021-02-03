@@ -1,9 +1,12 @@
+import Calendar from "./calendar.js";
+
 class Renderer {
-  constructor() {
+  constructor($target) {
+    this.$calendar = new Calendar(document.querySelector("#calendar"));
   }
 
   render() {
-    console.log("Hello World");
+    this.$calendar.render();
   }
 }
 

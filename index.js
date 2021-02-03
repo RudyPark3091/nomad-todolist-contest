@@ -1,3 +1,3 @@
-import Renderer from "./js/renderer.js"
+import Renderer from "./js/renderer.js";
 
-new Renderer().render();
+new Renderer(document.querySelector("#app")).render();
