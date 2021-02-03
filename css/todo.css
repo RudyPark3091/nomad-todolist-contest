@@ -8,7 +8,6 @@
   width: 90vw;
   height: 90vh;
   background-color: #fff;
-  display: grid;
   overflow-y: scroll;
   scrollbar-color: transparent;
 }
@@ -19,6 +18,10 @@
 
 .todo-wrapper {
   width: 100%;
-  height: 400px;
-  text-align: center;
+  height: 100px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

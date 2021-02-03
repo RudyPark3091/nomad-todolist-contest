@@ -8,28 +8,28 @@ class Renderer {
   data = [
     new Todo({
       id: 1,
-      title: "greetings",
+      title: "item 1",
       content: "say hi",
       due: "2020-10-11",
       done: false,
     }),
     new Todo({
       id: 2,
-      title: "greetings",
+      title: "item 2",
       content: "say hi",
       due: "2020-10-11",
       done: false,
     }),
     new Todo({
       id: 3,
-      title: "greetings",
+      title: "item 3",
       content: "say hi",
       due: "2020-10-11",
       done: false,
     }),
     new Todo({
       id: 4,
-      title: "greetings",
+      title: "item 4",
       content: "say hi",
       due: "2020-10-11",
       done: false,
@@ -66,7 +66,7 @@ class Renderer {
       }, 200);
     });
     this.$calendar = new Calendar(document.querySelector("#calendar"));
-    this.tasks = new TodoManager();
+    this.tasks = new TodoManager(this.data);
     this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
   }
 

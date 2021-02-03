@@ -1,10 +1,9 @@
 class TodoManager {
-  constructor($target) {
-    this.$target = $target;
+  constructor(data) {
     const $todoManager = document.createElement("div");
     this.$todoManager = $todoManager;
 
-    this.db = [];
+    this.db = data;
   }
 
   getAll() {
@@ -12,20 +11,23 @@ class TodoManager {
   }
 
   getById(id) {
-    const filtered = this.db.filter(item => item.id === id);
+    const filtered = this.db.filter(item => item.id === +id);
     if (filtered.length === 1)
-      return filtered;
+      return filtered[0];
     else
       return null;
   }
 
-  create(Todo) {
-    this.db.push(Todo);
+  create({ ...Todo }) {
+    this.db.push({
+      id: this.db.lengnth,
+      ...Todo
+    });
   }
 
   update(id, { ...Todo }) {
     this.db.forEach(todo => {
-      if (todo.id === id) {
+      if (todo.id === +id) {
         todo.title = Todo.title;
         todo.content = Todo.content;
         todo.done = Todo.done;
@@ -34,7 +36,7 @@ class TodoManager {
   }
 
   delete(id) {
-    this.db = this.db.filter(item => item.id !== id);
+    this.db = this.db.filter(item => item.id !== +id);
   }
 }
 
