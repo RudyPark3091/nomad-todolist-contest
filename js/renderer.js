@@ -1,7 +1,41 @@
 import Calendar from "./calendar.js";
 import Paginator from "./paginator.js";
+import Todo from "./todo.js";
+import TodoManager from "./todoManager.js";
+import TodoRenderer from "./todoRenderer.js";
 
 class Renderer {
+  data = [
+    new Todo({
+      id: 1,
+      title: "greetings",
+      content: "say hi",
+      due: "2020-10-11",
+      done: false,
+    }),
+    new Todo({
+      id: 2,
+      title: "greetings",
+      content: "say hi",
+      due: "2020-10-11",
+      done: false,
+    }),
+    new Todo({
+      id: 3,
+      title: "greetings",
+      content: "say hi",
+      due: "2020-10-11",
+      done: false,
+    }),
+    new Todo({
+      id: 4,
+      title: "greetings",
+      content: "say hi",
+      due: "2020-10-11",
+      done: false,
+    }),
+  ];
+
   constructor($target) {
     this.$paginator = new Paginator(e => {
       document.body.style.overflowY = "scroll";
@@ -14,7 +48,6 @@ class Renderer {
       if (this.$paginator.tick) clearTimeout(this.$paginator.tick);
 
       this.$paginator.tick = setTimeout(_ => {
-        console.log("operation here");
         if (
           window.scrollY > this.$paginator.H &&
           this.$paginator.H < window.innerHeight * this.$paginator.count
@@ -33,12 +66,15 @@ class Renderer {
       }, 200);
     });
     this.$calendar = new Calendar(document.querySelector("#calendar"));
+    this.tasks = new TodoManager();
+    this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
   }
 
   render() {
     this.$calendar.render();
+    this.$todo.render(this.data);
     this.$paginator.add(this.$calendar.$target);
-    this.$paginator.add(document.querySelector("#todo"));
+    this.$paginator.add(this.$todo.$target);
     this.$paginator.init();
   }
 }

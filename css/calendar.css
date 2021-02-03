@@ -6,9 +6,11 @@
 
 #calendar button {
   width: 5vw;
+  height: 100vh;
   color: #fff;
   background-color: #444;
   border: none;
+  cursor: pointer;
 }
 
 #calendar button:focus {
