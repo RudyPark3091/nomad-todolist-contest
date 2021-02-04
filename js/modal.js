@@ -11,6 +11,13 @@ class Modal {
     $closeButton.id = "modal-close";
     $closeButton.addEventListener("click", e => {
       $modal.classList.toggle("hidden");
+      const $inputs = document.querySelectorAll("input");
+      $inputs.forEach(input => {
+        input.value = "";
+        input.classList.remove("modal-alert");
+      });
+      document.querySelector("textarea").value = "";
+      document.querySelector(".modal-alert-message").innerText = "";
     });
 
     $buttonWrapper.appendChild($closeButton);

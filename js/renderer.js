@@ -6,37 +6,7 @@ import TodoRenderer from "./todoRenderer.js";
 import Modal from "./modal.js";
 
 class Renderer {
-  data = [
-    new Todo({
-      id: 1,
-      title: "item 1",
-      content: "say hi",
-      due: "2020-10-11",
-      done: false,
-    }),
-    new Todo({
-      id: 2,
-      title: "item 2",
-      content: "say hi",
-      due: "2020-10-11",
-      done: false,
-    }),
-    new Todo({
-      id: 3,
-      content: "item with no title",
-      due: "2020-10-11",
-      done: false,
-    }),
-    new Todo({
-      id: 4,
-      title: "item 4",
-      content: "some loooooooooooooooooooooooong content",
-      due: "2020-10-11",
-      done: false,
-    }),
-  ];
-
-  constructor($target) {
+  constructor() {
     this.$paginator = new Paginator(e => {
       document.body.style.overflowY = "scroll";
       if (window.scrollY - this.$paginator.H > this.$paginator.OFFSET) {
@@ -83,7 +53,7 @@ class Renderer {
         content: $content.value,
         due: due,
       });
-      this.$todo.render(this.data);
+      this.$todo.render(this.tasks.db);
       
       $title.value = "";
       $content.value = "";
@@ -94,6 +64,7 @@ class Renderer {
       $year.classList.remove("modal-alert");
       $month.classList.remove("modal-alert");
       $date.classList.remove("modal-alert");
+      document.querySelector(".modal-alert-message").innerText = "";
 
       this.$modal.$modal.classList.toggle("hidden");
     });
@@ -101,7 +72,7 @@ class Renderer {
 
   render() {
     this.$calendar.render();
-    this.$todo.render(this.data);
+    this.$todo.render(this.tasks.db);
     this.$modal.render();
     this.$paginator.add(this.$calendar.$target);
     this.$paginator.add(this.$todo.$target);
