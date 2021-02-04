@@ -31,6 +31,7 @@ class Modal {
     this.$okButton = $okButton;
     this.$alert = $alert;
     this.$modal = $modal;
+
     this.$modal.addEventListener("change", e => {
       const target = e.target;
       if (
@@ -42,8 +43,15 @@ class Modal {
           target.classList.add("modal-alert");
           $alert.innerText = "This todo won't be in the calendar";
         } else {
-          target.classList.remove("modal-alert")
-          $alert.innerText = "";
+          const yes = this.validate(target.classList[0].split("-")[1], +target.value);
+          if (yes) {
+            target.classList.remove("modal-alert")
+            $alert.innerText = "";
+          } else {
+            if (target.classList[1] !== "modal-alert")
+              target.classList.add("modal-alert");
+            $alert.innerText = "Check your due date numbers";
+          }
         }
       }
     });
@@ -68,6 +76,17 @@ class Modal {
     this.$modal.appendChild(this.$okButton);
     document.body.appendChild(this.$modal);
   }
+
+  validate(context, num) {
+    if (context === "year") {
+      return (num.toString().length === 4 ? true : false);
+    } else if (context === "month") {
+      return (0 < num && num <= 12 ? true : false);
+    } else if (context === "date") {
+      return (0 < num && num <= 31 ? true : false);
+    }
+  }
+
 }
 
 export default Modal;
