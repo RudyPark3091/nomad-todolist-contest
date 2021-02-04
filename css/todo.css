@@ -8,6 +8,9 @@
   width: 90vw;
   height: 90vh;
   background-color: #fff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fill, minmax(100px, auto));
   overflow-y: scroll;
   scrollbar-color: transparent;
 }
@@ -17,11 +20,50 @@
 }
 
 .todo-wrapper {
-  width: 100%;
-  height: 100px;
-  margin: 10px;
+  padding: 20px;
+}
+
+.todo-wrapper button {
+  width: 10px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 3px;
+  margin-bottom: 8px;
+}
+
+.todo-wrapper button:focus {
+  outline: none;
+}
+
+.todo-wrapper .todo-delete {
+  background-color: rgb(238, 108, 97);
+}
+
+.todo-wrapper .todo-update {
+  background-color: rgb(247, 193, 81);
+}
+
+.todo-due {
+  font-size: 12px;
+}
+
+.todo-item {
+  font-size: 20px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+
+.todo-content {
+  font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+  .todo-container {
+    display: flex;
+    flex-direction: column;
+  }
 }

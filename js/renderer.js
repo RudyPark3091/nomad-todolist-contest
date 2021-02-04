@@ -22,15 +22,14 @@ class Renderer {
     }),
     new Todo({
       id: 3,
-      title: "item 3",
-      content: "say hi",
+      content: "item with no title",
       due: "2020-10-11",
       done: false,
     }),
     new Todo({
       id: 4,
       title: "item 4",
-      content: "say hi",
+      content: "some loooooooooooooooooooooooong content",
       due: "2020-10-11",
       done: false,
     }),

@@ -28,9 +28,10 @@ class TodoManager {
   update(id, { ...Todo }) {
     this.db.forEach(todo => {
       if (todo.id === +id) {
-        todo.title = Todo.title;
-        todo.content = Todo.content;
-        todo.done = Todo.done;
+        if (Todo.title) todo.title = Todo.title;
+        if (Todo.content) todo.content = Todo.content;
+        if (Todo.due) todo.due = Todo.due;
+        if (Todo.done) todo.done = Todo.done;
       }
     });
   }
