@@ -19,6 +19,12 @@
   display: none;
 }
 
+.todo-add-button {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+}
+
 .todo-wrapper {
   padding: 20px;
 }

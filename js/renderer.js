@@ -48,11 +48,20 @@ class Renderer {
 
       const _id = document.querySelector("#modal").dataset.id;
       const due = `${$year.value}-${$month.value}-${$date.value}`;
-      this.tasks.update(_id, {
-        title: $title.value,
-        content: $content.value,
-        due: due,
-      });
+      if (+_id === 0) {
+        this.tasks.create({
+          title: $title.value,
+          content: $content.value,
+          due: due,
+          done: false,
+        });
+      } else {
+        this.tasks.update(_id, {
+          title: $title.value,
+          content: $content.value,
+          due: due,
+        });
+      }
       this.$todo.render(this.tasks.db);
       
       $title.value = "";

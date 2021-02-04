@@ -14,13 +14,17 @@ class TodoRenderer {
         const $modal = document.querySelector("#modal");
         $modal.classList.toggle("hidden");
         $modal.dataset.id = e.target.dataset.id;
-        // this.tasks.update(e.target.dataset.id, {
-        //   title: "changed!",
-        //   content: "updated content"
-        // });
-        // this.render(this.tasks.db);
+      } else if (e.target.className === "todo-add-button") {
+        const $modal = document.querySelector("#modal");
+        $modal.classList.toggle("hidden");
+        $modal.dataset.id = 0;
       }
     }
+
+    const $addButton = document.createElement("button");
+    $addButton.classList.add("todo-add-button");
+    $addButton.innerText = "+";
+    this.$addButton = $addButton;
 
     this.$container = $container;
   }
@@ -43,6 +47,7 @@ class TodoRenderer {
     })
 
     this.$container.innerHTML = html;
+    this.$container.appendChild(this.$addButton);
     this.$target.appendChild(this.$container);
   }
 }
