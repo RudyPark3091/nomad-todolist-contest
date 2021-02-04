@@ -22,7 +22,18 @@
 .todo-add-button {
   width: 30px;
   height: 30px;
+  color: #bbb;
+  font-weight: 900;
+  border: 3px solid #bbb;
+  border-radius: 50%;
+  background-color: transparent;
   position: absolute;
+  right: 5vw;
+  cursor: pointer;
+}
+
+.todo-add-button:focus {
+  outline: none;
 }
 
 .todo-wrapper {

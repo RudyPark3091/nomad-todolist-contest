@@ -13,7 +13,16 @@ class TodoRenderer {
       } else if (e.target.className === "todo-update") {
         const $modal = document.querySelector("#modal");
         $modal.classList.toggle("hidden");
-        $modal.dataset.id = e.target.dataset.id;
+        const _id = e.target.dataset.id;
+        $modal.dataset.id = _id;
+
+        const item = this.tasks.getById(_id);
+        $modal.querySelector(".modal-title").value = item.title;
+        $modal.querySelector(".modal-content").value = item.content;
+        const _due = item.due.split("-");
+        $modal.querySelector(".modal-year").value = _due[0];
+        $modal.querySelector(".modal-month").value = _due[1];
+        $modal.querySelector(".modal-date").value = _due[2];
       } else if (e.target.className === "todo-add-button") {
         const $modal = document.querySelector("#modal");
         $modal.classList.toggle("hidden");
