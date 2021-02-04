@@ -3,6 +3,7 @@ import Paginator from "./paginator.js";
 import Todo from "./todo.js";
 import TodoManager from "./todoManager.js";
 import TodoRenderer from "./todoRenderer.js";
+import Modal from "./modal.js";
 
 class Renderer {
   data = [
@@ -67,11 +68,35 @@ class Renderer {
     this.$calendar = new Calendar(document.querySelector("#calendar"));
     this.tasks = new TodoManager(this.data);
     this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
+    this.$modal = new Modal(e => {
+      const title = document.querySelector(".modal-title");
+      const content = document.querySelector(".modal-content");
+
+      const year = document.querySelector(".modal-year");
+      const month = document.querySelector(".modal-month");
+      const date = document.querySelector(".modal-date");
+      const due = `${year.value}-${month.value}-${date.value}`;
+      
+      console.log(title.value, content.value, due);
+
+      title.value = "";
+      content.value = "";
+      year.value = "";
+      month.value = "";
+      date.value = "";
+
+      year.classList.remove("modal-alert");
+      month.classList.remove("modal-alert");
+      date.classList.remove("modal-alert");
+
+      this.$modal.$modal.classList.toggle("hidden");
+    });
   }
 
   render() {
     this.$calendar.render();
     this.$todo.render(this.data);
+    this.$modal.render();
     this.$paginator.add(this.$calendar.$target);
     this.$paginator.add(this.$todo.$target);
     this.$paginator.init();

@@ -1,0 +1,128 @@
+#modal {
+  --width: 50vw;
+  --height: 50vh;
+  --padding: 3%;
+  --padding-top: 30px;
+  --padding-bottom: 50px;
+  --padding-leftright: 10px;
+  width: var(--width);
+  height: var(--height);
+  border-radius: 5px;
+  background-color: #efefef;
+  display: flex;
+  padding: var(--padding-top) var(--padding-leftright)
+    var(--padding-bottom) var(--padding-leftright);
+  margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: calc(50vh - (var(--padding-top) + var(--padding-bottom)) / 2
+    - calc(var(--height) / 2));
+  left: calc(50vw - var(--padding-leftright) - calc(var(--width) / 2));
+  animation: fade-in 0.5s ease-in-out;
+}
+
+#modal.hidden {
+  display: none;
+}
+
+#modal #modal-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#modal #modal-button-wrapper > button {
+  width: 10px;
+  height: 12px;
+  margin-right: 7px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgb(209, 209, 209);
+  cursor: pointer;
+}
+
+#modal #modal-button-wrapper #modal-close {
+  background-color: tomato;
+}
+
+#modal #modal-ok {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  margin: calc(var(--padding) - 5px);
+  cursor: pointer;
+}
+
+#modal .modal-alert {
+  border: 2px solid red;
+}
+
+#modal input,
+#modal textarea {
+  width: calc(100% - var(--padding));
+  height: 20px;
+  margin: 2.5px;
+  border: 2px solid #efefef;
+  border-radius: 5px;
+  background-color: #fff;
+  resize: none;
+}
+
+#modal input:focus,
+#modal textarea:focus {
+  outline: none;
+}
+
+#modal textarea.modal-content {
+  height: 80%;
+}
+
+#modal .modal-due-wrapper {
+  width: calc(100% - var(--padding));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal .modal-due-span {
+  padding-top: 5px;
+  margin-right: 20px;
+}
+
+#modal .modal-due-wrapper > * {
+  width: calc(100% / 5);
+  margin: 0px 10px;
+}
+
+#modal button:focus {
+  outline: none;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@media (max-width: 900px) {
+  #modal {
+    --width: 80vw;
+    --height: 70vh;
+    --padding: 0px;
+  }
+
+  #modal textarea.modal-content {
+    height: 70%;
+  }
+}

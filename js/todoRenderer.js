@@ -6,15 +6,19 @@ class TodoRenderer {
     $container.classList.add("todo-container");
     $container.onscroll = e => e.stopPropagation();
     $container.onclick = e => {
+      e.stopPropagation();
       if (e.target.className === "todo-delete") {
         this.tasks.delete(e.target.dataset.id);
         this.render(this.tasks.db);
       } else if (e.target.className === "todo-update") {
-        this.tasks.update(e.target.dataset.id, {
-          title: "changed!",
-          content: "updated content"
-        });
-        this.render(this.tasks.db);
+        const $modal = document.querySelector("#modal");
+        $modal.classList.toggle("hidden");
+        $modal.dataset.id = e.target.dataset.id;
+        // this.tasks.update(e.target.dataset.id, {
+        //   title: "changed!",
+        //   content: "updated content"
+        // });
+        // this.render(this.tasks.db);
       }
     }
 
