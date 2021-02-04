@@ -1,9 +1,11 @@
+const DB_KEYWORD = "rudy-todos";
+
 class TodoManager {
   constructor() {
     const $todoManager = document.createElement("div");
     this.$todoManager = $todoManager;
 
-    this.db = JSON.parse(localStorage.getItem("rudy-todos"));
+    this.db = JSON.parse(localStorage.getItem(DB_KEYWORD));
   }
 
   getAll() {
@@ -23,7 +25,7 @@ class TodoManager {
       id: this.db[this.db.length - 1].id + 1,
       ...Todo
     });
-    localStorage.setItem("rudy-todos", JSON.stringify(this.db));
+    localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
   }
 
   update(id, { ...Todo }) {
@@ -35,12 +37,12 @@ class TodoManager {
         if (Todo.done) todo.done = Todo.done;
       }
     });
-    localStorage.setItem("rudy-todos", JSON.stringify(this.db));
+    localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
   }
 
   delete(id) {
     this.db = this.db.filter(item => item.id !== +id);
-    localStorage.setItem("rudy-todos", JSON.stringify(this.db));
+    localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
   }
 }
 

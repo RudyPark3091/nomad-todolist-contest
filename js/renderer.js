@@ -9,22 +9,28 @@ class Renderer {
   constructor() {
     this.$paginator = new Paginator(e => {
       document.body.style.overflowY = "scroll";
-      if (window.scrollY - this.$paginator.H > this.$paginator.OFFSET) {
-        document.body.style.overflowY = "hidden";
-      } else if (this.$paginator.H - window.scrollY > this.$paginator.OFFSET) {
-        document.body.style.overflowY = "hidden";
-      }
 
-      if (this.$paginator.tick) clearTimeout(this.$paginator.tick);
+      let scroll = !this.$paginator.tick;
+      clearTimeout(this.$paginator.tick);
+      document.body.style.overflowY = "hidden";
 
       this.$paginator.tick = setTimeout(_ => {
+        this.$paginator.tick = null
+        document.body.style.overflowY = "scroll";
+      }, 500);
+      if (scroll) {
         if (
+          window.scrollY - this.$paginator.H > this.$paginator.OFFSET &&
           window.scrollY > this.$paginator.H &&
           this.$paginator.H < window.innerHeight * this.$paginator.count
         ) {
           // scrolling down
           this.$paginator.H += window.innerHeight;
-        } else if (window.scrollY < this.$paginator.H && this.$paginator.H > 0) {
+        } else if (
+          this.$paginator.H - window.scrollY > this.$paginator.OFFSET &&
+          window.scrollY < this.$paginator.H &&
+          this.$paginator.H > 0
+        ) {
           // scrolling up
           this.$paginator.H -= window.innerHeight;
         }
@@ -33,7 +39,7 @@ class Renderer {
           top: this.$paginator.H,
           behavior: "smooth"
         });
-      }, 200);
+      }
     });
     this.$calendar = new Calendar(document.querySelector("#calendar"));
     this.tasks = new TodoManager(this.data);
@@ -83,6 +89,7 @@ class Renderer {
     this.$calendar.render();
     this.$todo.render(this.tasks.db);
     this.$modal.render();
+    this.$paginator.add(document.querySelector("#landing"));
     this.$paginator.add(this.$calendar.$target);
     this.$paginator.add(this.$todo.$target);
     this.$paginator.init();

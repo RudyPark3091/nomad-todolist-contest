@@ -9,12 +9,17 @@ class Paginator {
     this.H = 0;
     window.onload = _ => {
       document.body.style.overflowY = "scroll";
-      this.H = window.scrollY;
+    }
+
+    window.onresize = _ => {
+      this.H = 0;
+      window.scroll({ top: 0, behavior: "smooth" });
+      document.body.style.overflowY = "scroll";
     }
     // amount of pixel to activate scroll
     this.OFFSET = 1;
     // variable for scroll debouncing
-    this.tick = 0;
+    this.tick = null;
 
     document.body.onscroll = onScroll;
   }
