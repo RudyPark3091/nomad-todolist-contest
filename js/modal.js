@@ -22,9 +22,14 @@ class Modal {
     $okButton.innerText = "Ok";
     $okButton.addEventListener("click", onSubmit);
 
+    const $alert = document.createElement("div");
+    $alert.style.color = "red";
+    $alert.classList.add("modal-alert-message");
+
     this.$buttonWrapper = $buttonWrapper;
     this.$closeButton = $closeButton;
     this.$okButton = $okButton;
+    this.$alert = $alert;
     this.$modal = $modal;
     this.$modal.addEventListener("change", e => {
       const target = e.target;
@@ -35,8 +40,10 @@ class Modal {
       ) {
         if (isNaN(parseInt(target.value))) {
           target.classList.add("modal-alert");
+          $alert.innerText = "This todo won't be in the calendar";
         } else {
           target.classList.remove("modal-alert")
+          $alert.innerText = "";
         }
       }
     });
@@ -57,6 +64,7 @@ class Modal {
     this.$modal.innerHTML = html;
 
     this.$modal.appendChild(this.$buttonWrapper);
+    this.$modal.appendChild(this.$alert);
     this.$modal.appendChild(this.$okButton);
     document.body.appendChild(this.$modal);
   }

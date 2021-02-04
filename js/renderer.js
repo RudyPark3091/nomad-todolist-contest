@@ -69,25 +69,31 @@ class Renderer {
     this.tasks = new TodoManager(this.data);
     this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
     this.$modal = new Modal(e => {
-      const title = document.querySelector(".modal-title");
-      const content = document.querySelector(".modal-content");
+      const $title = document.querySelector(".modal-title");
+      const $content = document.querySelector(".modal-content");
 
-      const year = document.querySelector(".modal-year");
-      const month = document.querySelector(".modal-month");
-      const date = document.querySelector(".modal-date");
-      const due = `${year.value}-${month.value}-${date.value}`;
+      const $year = document.querySelector(".modal-year");
+      const $month = document.querySelector(".modal-month");
+      const $date = document.querySelector(".modal-date");
+
+      const _id = document.querySelector("#modal").dataset.id;
+      const due = `${$year.value}-${$month.value}-${$date.value}`;
+      this.tasks.update(_id, {
+        title: $title.value,
+        content: $content.value,
+        due: due,
+      });
+      this.$todo.render(this.data);
       
-      console.log(title.value, content.value, due);
+      $title.value = "";
+      $content.value = "";
+      $year.value = "";
+      $month.value = "";
+      $date.value = "";
 
-      title.value = "";
-      content.value = "";
-      year.value = "";
-      month.value = "";
-      date.value = "";
-
-      year.classList.remove("modal-alert");
-      month.classList.remove("modal-alert");
-      date.classList.remove("modal-alert");
+      $year.classList.remove("modal-alert");
+      $month.classList.remove("modal-alert");
+      $date.classList.remove("modal-alert");
 
       this.$modal.$modal.classList.toggle("hidden");
     });

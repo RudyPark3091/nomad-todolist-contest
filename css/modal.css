@@ -43,11 +43,11 @@
   border: none;
   border-radius: 50%;
   background-color: rgb(209, 209, 209);
-  cursor: pointer;
 }
 
 #modal #modal-button-wrapper #modal-close {
   background-color: tomato;
+  cursor: pointer;
 }
 
 #modal #modal-ok {
@@ -61,6 +61,12 @@
 
 #modal .modal-alert {
   border: 2px solid red;
+}
+
+#modal .modal-alert-message {
+  position: absolute;
+  text-align: center;
+  bottom: 20px;
 }
 
 #modal input,
