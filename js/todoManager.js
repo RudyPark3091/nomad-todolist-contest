@@ -22,8 +22,9 @@ class TodoManager {
   }
 
   create({ ...Todo }) {
+    const _id = this.db.length ? this.db[this.db.length - 1].id + 1 : 1;
     this.db.push({
-      id: this.db[this.db.length - 1].id + 1,
+      id: _id,
       ...Todo
     });
     localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
