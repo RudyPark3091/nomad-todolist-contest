@@ -1,12 +1,13 @@
+import Landing from "./landing.js";
 import Calendar from "./calendar.js";
 import Paginator from "./paginator.js";
-import Todo from "./todo.js";
 import TodoManager from "./todoManager.js";
 import TodoRenderer from "./todoRenderer.js";
 import Modal from "./modal.js";
 
 class Renderer {
   constructor() {
+    this.$landing = new Landing(document.querySelector("#landing"));
     this.$paginator = new Paginator(e => {
       document.body.style.overflowY = "scroll";
 
@@ -86,6 +87,7 @@ class Renderer {
   }
 
   render() {
+    this.$landing.render();
     this.$calendar.render();
     this.$todo.render(this.tasks.db);
     this.$modal.render();

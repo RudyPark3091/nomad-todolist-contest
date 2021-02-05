@@ -6,6 +6,7 @@ class TodoManager {
     this.$todoManager = $todoManager;
 
     this.db = JSON.parse(localStorage.getItem(DB_KEYWORD));
+    if (!this.db) this.db = [];
   }
 
   getAll() {
