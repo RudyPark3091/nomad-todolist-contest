@@ -48,16 +48,14 @@ class Paginator {
     }, 500);
     if (scroll) {
       if (
-        window.scrollY - this.H > this.OFFSET &&
-        window.scrollY > this.H &&
-        this.H < window.innerHeight * this.count
+        window.scrollY - this.H >= this.OFFSET &&
+        window.scrollY > this.H
       ) {
         // scrolling down
         this.H += window.innerHeight;
       } else if (
-        this.H - window.scrollY > this.OFFSET &&
-        window.scrollY < this.H &&
-        this.H > 0
+        this.H - window.scrollY >= this.OFFSET &&
+        window.scrollY < this.H
       ) {
         // scrolling up
         this.H -= window.innerHeight;
