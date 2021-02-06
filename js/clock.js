@@ -1,7 +1,3 @@
-const PIXEL = 20;
-const CANVAS_WIDTH = PIXEL * 17;
-const CANVAS_HEIGHT = PIXEL * 5;
-
 // to render numbers properly,
 // make sure $target's background color is
 // not transparent
@@ -9,14 +5,20 @@ class Clock {
   constructor($target) {
     this.$target = $target;
 
-    this.color = "#ddd";
+    this.PIXEL = parseInt(
+      Math.max(window.innerWidth / 50, window.innerHeight / 50)
+    );
+    this.CANVAS_WIDTH = this.PIXEL * 17;
+    this.CANVAS_HEIGHT = this.PIXEL * 5;
+
+    this.color = "#888";
     this.bgColor = window.getComputedStyle(
       document.querySelector("#landing")
     ).backgroundColor;
 
     const $canvas = document.createElement("canvas");
-    $canvas.setAttribute("width", CANVAS_WIDTH);
-    $canvas.setAttribute("height", CANVAS_HEIGHT);
+    $canvas.setAttribute("width", this.CANVAS_WIDTH);
+    $canvas.setAttribute("height", this.CANVAS_HEIGHT);
 
     this.ctx = $canvas.getContext("2d");
     this.ctx.fillStyle = this.color;
@@ -31,8 +33,8 @@ class Clock {
   }
 
   render() {
-    this.ctx.fillRect(PIXEL * 8, PIXEL, PIXEL, PIXEL);
-    this.ctx.fillRect(PIXEL * 8, PIXEL * 3, PIXEL, PIXEL);
+    this.ctx.fillRect(this.PIXEL * 8, this.PIXEL, this.PIXEL, this.PIXEL);
+    this.ctx.fillRect(this.PIXEL * 8, this.PIXEL * 3, this.PIXEL, this.PIXEL);
     this.$target.appendChild(this.$canvas);
   }
 
@@ -40,90 +42,145 @@ class Clock {
     this.ctx.fillStyle = this.color;
     switch (num) {
       case 0:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos, PIXEL, 20, 60);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL, 20, 60);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL, this.PIXEL, this.PIXEL * 3);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL,
+          this.PIXEL * 3
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 1:
-        this.ctx.fillRect(pos + PIXEL * 2, 0, 20, 100);
+        this.ctx.fillRect(pos + this.PIXEL * 2, 0, this.PIXEL, this.PIXEL * 5);
         break;
 
       case 2:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 3, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 3:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL * 3,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 4:
-        this.ctx.fillRect(pos + PIXEL * 2, 0, 20, 100);
-        this.ctx.fillRect(pos, 0, 20, 60);
-        this.ctx.fillRect(pos + PIXEL, PIXEL * 2, 20, 20);
+        this.ctx.fillRect(pos + this.PIXEL * 2, 0, this.PIXEL, this.PIXEL * 5);
+        this.ctx.fillRect(pos, 0, this.PIXEL, this.PIXEL * 3);
+        this.ctx.fillRect(
+          pos + this.PIXEL,
+          this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL
+        );
         break;
 
       case 5:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL * 3,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 6:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 3, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL * 3,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 7:
-        this.ctx.fillRect(pos + PIXEL * 2, 0, 20, 100);
-        this.ctx.fillRect(pos, 0, 40, 20);
+        this.ctx.fillRect(pos + this.PIXEL * 2, 0, this.PIXEL, this.PIXEL * 5);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 2, this.PIXEL);
         break;
 
       case 8:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos, PIXEL, 20, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL * 3, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL * 3,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
 
       case 9:
-        this.ctx.fillRect(pos, 0, 60, 20);
-        this.ctx.fillRect(pos, PIXEL, 20, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 2, 60, 20);
-        this.ctx.fillRect(pos + PIXEL * 2, PIXEL * 3, 20, 20);
-        this.ctx.fillRect(pos, PIXEL * 4, 60, 20);
+        this.ctx.fillRect(pos, 0, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(pos, this.PIXEL, this.PIXEL, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 2, this.PIXEL * 3, this.PIXEL);
+        this.ctx.fillRect(
+          pos + this.PIXEL * 2,
+          this.PIXEL * 3,
+          this.PIXEL,
+          this.PIXEL
+        );
+        this.ctx.fillRect(pos, this.PIXEL * 4, this.PIXEL * 3, this.PIXEL);
         break;
     }
   }
 
   clearHour() {
     this.ctx.fillStyle = this.bgColor;
-    this.ctx.fillRect(0, 0, PIXEL * 7, this.$canvas.height);
+    this.ctx.fillRect(0, 0, this.PIXEL * 7, this.$canvas.height);
     this.ctx.fillStyle = this.color;
   }
 
   clearMinute() {
     this.ctx.fillStyle = this.bgColor;
-    this.ctx.fillRect(PIXEL * 10, 0, PIXEL * 7, this.$canvas.height);
+    this.ctx.fillRect(this.PIXEL * 10, 0, this.PIXEL * 7, this.$canvas.height);
     this.ctx.fillStyle = this.color;
   }
 
@@ -134,7 +191,7 @@ class Clock {
 
     if (hour !== this.hour) {
       const slot1 = 0;
-      const slot2 = PIXEL * 4;
+      const slot2 = this.PIXEL * 4;
 
       this.clearHour();
       this.draw(hour < 10 ? 0 : parseInt(hour / 10), slot1);
@@ -142,8 +199,8 @@ class Clock {
       this.hour = hour;
     }
     if (minute !== this.minute) {
-      const slot1 = PIXEL * 10;
-      const slot2 = PIXEL * 14;
+      const slot1 = this.PIXEL * 10;
+      const slot2 = this.PIXEL * 14;
 
       this.clearMinute();
       this.draw(minute < 10 ? 0 : parseInt(minute / 10), slot1);
