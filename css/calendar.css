@@ -6,9 +6,17 @@
 }
 
 #calendar .calendar-label-wrapper {
+  height: 10vh;
+  font-size: 2rem;
+  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.calendar-label-wrapper div {
+  width: 50vw;
+  text-align: center;
 }
 
 #calendar button {
@@ -25,7 +33,7 @@
 
 .calendar-container {
   width: 90vw;
-  height: 90vh;
+  height: 80vh;
   background-color: #fff;
   display: grid;
   grid-template-rows: repeat(6, 1fr);
@@ -36,6 +44,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.calendar-dots-wrapper {
+  width: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin-top: 30px;
+}
+
+.calendar-dots {
+  width: 4px;
+  height: 4px;
+  background-color: darkorange;
+  margin-right: 2px;
 }
 
 .calendar-container .calendar-today {

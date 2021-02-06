@@ -44,7 +44,10 @@ class Calendar {
     this.setDate(newDate);
 
     this.$target.removeChild(this.$container);
-    this.init(this.date, this.today.getMonth() === newMonth);
+    this.init(
+      this.date,
+      this.today.getFullYear() === newYear && this.today.getMonth() === newMonth
+    );
     this.$target.appendChild(this.$container);
   }
 
@@ -57,7 +60,10 @@ class Calendar {
     const newDate = new Date(newYear, newMonth);
     this.setDate(newDate);
     this.$target.removeChild(this.$container);
-    this.init(this.date, this.today.getMonth() === newMonth);
+    this.init(
+      this.date,
+      this.today.getFullYear() === newYear && this.today.getMonth() === newMonth
+    );
     this.$target.appendChild(this.$container);
   }
 
@@ -83,13 +89,33 @@ class Calendar {
       days.push(i);
     }
 
+    const db = this.tasks.dbCalendar[_year][_month + 1]
+    const target = Object.keys(db);
+    const amt = Object.values(db)
+    let idx = 0;
+
     days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
+
+      if (day === +target[idx]) {
+        const $dot = document.createElement("div");
+        $dot.classList.add("calendar-dots-wrapper");
+        
+        for (let i = 0; i < amt[idx]; i++) {
+          const $d = document.createElement("div");
+          $d.classList.add("calendar-dots");
+          $dot.appendChild($d);
+        }
+
+        $div.appendChild($dot);
+        idx += 1;
+      }
+
       $container.appendChild($div);
-    })
+    });
 
     this.$container = $container;
   }
