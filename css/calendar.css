@@ -1,12 +1,18 @@
 #calendar {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#calendar .calendar-label-wrapper {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #calendar button {
   width: 5vw;
-  height: 100vh;
   color: #000;
   background-color: transparent;
   border: none;

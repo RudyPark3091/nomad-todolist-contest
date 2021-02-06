@@ -11,15 +11,22 @@ const getLastDay = (year, month) => {
 class Calendar {
   date = null;
   container = null;
+  today = new Date();
 
   constructor($target, todoManager) {
     this.setDate(new Date());
     this.tasks = todoManager;
 
+    const $label = document.createElement("div");
+    $label.innerText =
+      `${this.date.getMonth() + 1} / ${this.date.getFullYear()}`;
+    this.$label = $label;
+
     this.$target = $target;
+    this.init(this.date, true);
+
     this.handlePrevMonth = this.handlePrevMonth.bind(this);
     this.handleNextMonth = this.handleNextMonth.bind(this);
-    this.init(this.date, true);
     $target.appendChild(this.$container);
   }
 
@@ -35,9 +42,9 @@ class Calendar {
 
     const newDate = new Date(newYear, newMonth);
     this.setDate(newDate);
-    console.log(this.$container);
+
     this.$target.removeChild(this.$container);
-    this.init(this.date, false);
+    this.init(this.date, this.today.getMonth() === newMonth);
     this.$target.appendChild(this.$container);
   }
 
@@ -49,13 +56,14 @@ class Calendar {
 
     const newDate = new Date(newYear, newMonth);
     this.setDate(newDate);
-    console.log(this.$container);
     this.$target.removeChild(this.$container);
-    this.init(this.date, false);
+    this.init(this.date, this.today.getMonth() === newMonth);
     this.$target.appendChild(this.$container);
   }
 
   init(date, isToday) {
+    this.$label.innerText =
+      `${this.date.getMonth() + 1} / ${this.date.getFullYear()}`;
     const $container = document.createElement("div");
     $container.classList.add("calendar-container");
 
@@ -78,7 +86,7 @@ class Calendar {
     days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
-      if (isToday && day === date.getDay())
+      if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
       $container.appendChild($div);
     })
@@ -87,23 +95,25 @@ class Calendar {
   }
 
   render() {
-    const prevButton = document.createElement("button");
-    prevButton.classList.add("calendar-prev");
-    prevButton.innerText = "<";
-    prevButton.dataset.year = this.date.getFullYear();
-    prevButton.dataset.month = this.date.getMonth();
-    prevButton.addEventListener("click", this.handlePrevMonth);
+    const $wrapper = document.createElement("div");
+    $wrapper.classList.add("calendar-label-wrapper");
 
-    const nextButton = document.createElement("button");
-    nextButton.classList.add("calendar-next");
-    nextButton.innerText = ">";
-    nextButton.dataset.year = this.date.getFullYear();
-    nextButton.dataset.month = this.date.getMonth();
-    nextButton.addEventListener("click", this.handleNextMonth);
+    const $prevButton = document.createElement("button");
+    $prevButton.classList.add("calendar-prev");
+    $prevButton.innerText = "<";
+    $prevButton.addEventListener("click", this.handlePrevMonth);
 
-    this.$target.appendChild(prevButton);
+    const $nextButton = document.createElement("button");
+    $nextButton.classList.add("calendar-next");
+    $nextButton.innerText = ">";
+    $nextButton.addEventListener("click", this.handleNextMonth);
+
+    $wrapper.appendChild($prevButton);
+    $wrapper.appendChild(this.$label);
+    $wrapper.appendChild($nextButton);
+
+    this.$target.appendChild($wrapper);
     this.$target.appendChild(this.$container);
-    this.$target.appendChild(nextButton);
   }
 }
 
