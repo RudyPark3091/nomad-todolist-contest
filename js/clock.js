@@ -24,9 +24,9 @@ class Clock {
     this.ctx.fillStyle = this.color;
     this.$canvas = $canvas;
 
-    this.hour = 0;
-    this.minute = 0;
-    this.second = 0;
+    this.hour = -1;
+    this.minute = -1;
+    this.second = -1;
 
     this.tick();
     setInterval(() => this.tick(), 1000);
