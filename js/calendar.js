@@ -89,10 +89,20 @@ class Calendar {
       days.push(i);
     }
 
-    const db = this.tasks.dbCalendar[_year][_month + 1]
-    const target = Object.keys(db);
-    const amt = Object.values(db)
+    let db;
+    let target, amt, dots;
     let idx = 0;
+
+    try {
+      db = this.tasks.dbCalendar[_year][_month + 1];
+      if (db !== undefined) {
+        target = Object.keys(db);
+        amt = Object.values(db)
+        dots = true;
+      }
+    } catch(e) {
+      dots = false;
+    }
 
     days.forEach(day => {
       const $div = document.createElement("div");
@@ -100,9 +110,11 @@ class Calendar {
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
 
-      if (day === +target[idx]) {
-        const $dot = document.createElement("div");
-        $dot.classList.add("calendar-dots-wrapper");
+      const $dot = document.createElement("div");
+      $dot.classList.add("calendar-dots-wrapper");
+      $dot.classList.add(`calendar-day-${day}`);
+
+      if (dots && day === +target[idx]) {
         
         for (let i = 0; i < amt[idx]; i++) {
           const $d = document.createElement("div");
@@ -110,13 +122,15 @@ class Calendar {
           $dot.appendChild($d);
         }
 
-        $div.appendChild($dot);
         idx += 1;
       }
 
+      $div.appendChild($dot);
       $container.appendChild($div);
     });
 
+    $container.dataset.month = _month;
+    $container.dataset.year = _year;
     this.$container = $container;
   }
 

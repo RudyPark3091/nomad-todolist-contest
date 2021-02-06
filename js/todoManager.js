@@ -45,6 +45,17 @@ class TodoManager {
       !this.dbCalendar[year][month][date] ?
         this.dbCalendar[year][month][date] = 1 :
         this.dbCalendar[year][month][date] += 1;
+
+      const $container = document.querySelector(".calendar-container");
+      const $target = document.querySelector(`.calendar-day-${date}`)
+      if (
+        parseInt($container.dataset.month) + 1 === month &&
+        parseInt($container.dataset.year) === year
+      ) {
+        const $d = document.createElement("div");
+        $d.classList.add("calendar-dots");
+        $target.appendChild($d);
+      }
     }
 
     localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
@@ -54,12 +65,22 @@ class TodoManager {
   update(id, { ...Todo }) {
     this.db.forEach(todo => {
       if (todo.id === +id) {
-        const [year, month, date] = this.parseDue(todo.due);
+        let [year, month, date] = this.parseDue(todo.due);
 
         if (!isNaN(year) && !isNaN(month) && !isNaN(date)) {
           this.dbCalendar[year][month][date] === 1 ?
             delete this.dbCalendar[year][month][date] :
             this.dbCalendar[year][month][date] -= 1;
+
+          let $container = document.querySelector(".calendar-container");
+          let $target = document.querySelector(`.calendar-day-${date}`)
+          if (
+            parseInt($container.dataset.month) + 1 === month &&
+            parseInt($container.dataset.year) === year
+          ) {
+            const $dot = $target.querySelector(".calendar-dots");
+            $target.removeChild($dot);
+          }
         }
 
         if (Todo.title) todo.title = Todo.title;
@@ -78,6 +99,17 @@ class TodoManager {
       !this.dbCalendar[year][month][date] ?
         this.dbCalendar[year][month][date] = 1 :
         this.dbCalendar[year][month][date] += 1;
+
+      const $container = document.querySelector(".calendar-container");
+      const $target = document.querySelector(`.calendar-day-${date}`);
+      if (
+        parseInt($container.dataset.month) + 1 === month &&
+        parseInt($container.dataset.year) === year
+      ) {
+        const $d = document.createElement("div");
+        $d.classList.add("calendar-dots");
+        $target.appendChild($d);
+      }
     }
 
     localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
@@ -91,7 +123,18 @@ class TodoManager {
       this.dbCalendar[year][month][date] === 1 ?
         delete this.dbCalendar[year][month][date] :
         this.dbCalendar[year][month][date] -= 1;
+
+      const $container = document.querySelector(".calendar-container");
+      const $target = document.querySelector(`.calendar-day-${date}`)
+      if (
+        parseInt($container.dataset.month) + 1 === month &&
+        parseInt($container.dataset.year) === year
+      ) {
+        const $dot = $target.querySelector(".calendar-dots");
+        $target.removeChild($dot);
+      }
     }
+
     this.db = this.db.filter(todo => todo.id !== +id);
     localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
     localStorage.setItem(DB_CAL_KEYWORD, JSON.stringify(this.dbCalendar));

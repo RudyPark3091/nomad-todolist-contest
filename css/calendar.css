@@ -56,14 +56,18 @@
   margin-top: 30px;
 }
 
+.calendar-today .calendar-dots-wrapper {
+  margin-top: 45px;
+}
+
 .calendar-dots {
   width: 4px;
   height: 4px;
-  background-color: darkorange;
-  margin-right: 2px;
+  background-color: #f00;
+  margin: 1px;
 }
 
 .calendar-container .calendar-today {
-  font-size: 30px;
+  font-size: 3rem;
   color: darkorange;
 }
