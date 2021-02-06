@@ -41,7 +41,7 @@ class TodoRenderer {
   render(data) {
     let html = "";
 
-    data.map(item => {
+    data.forEach(item => {
       html += `
       <div class="todo-wrapper">
         <button data-id="${item.id}" class="todo-delete"></button>
