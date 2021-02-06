@@ -42,8 +42,8 @@ class Renderer {
         });
       }
     });
-    this.$calendar = new Calendar(document.querySelector("#calendar"));
-    this.tasks = new TodoManager(this.data);
+    this.tasks = new TodoManager();
+    this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
     this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
     this.$modal = new Modal(e => {
       const $title = document.querySelector(".modal-title");
