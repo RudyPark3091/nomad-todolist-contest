@@ -1,6 +1,5 @@
 class Paginator {
-  constructor(onScroll) {
-    this.onScroll = onScroll
+  constructor() {
     // HTML elements being paginated
     this.$items = [];
     // length of item;
@@ -21,7 +20,8 @@ class Paginator {
     // variable for scroll debouncing
     this.tick = null;
 
-    document.body.onscroll = onScroll;
+    this.onScroll = this.onScroll.bind(this);
+    document.body.onscroll = this.onScroll;
   }
 
   add($item) {
@@ -33,6 +33,41 @@ class Paginator {
     this.$items.forEach(item => {
       item.classList.add("paginated");
     });
+  }
+
+  onScroll() {
+    document.body.style.overflowY = "scroll";
+
+    let scroll = !this.tick;
+    clearTimeout(this.tick);
+    document.body.style.overflowY = "hidden";
+
+    this.tick = setTimeout(_ => {
+      this.tick = null
+      document.body.style.overflowY = "scroll";
+    }, 500);
+    if (scroll) {
+      if (
+        window.scrollY - this.H > this.OFFSET &&
+        window.scrollY > this.H &&
+        this.H < window.innerHeight * this.count
+      ) {
+        // scrolling down
+        this.H += window.innerHeight;
+      } else if (
+        this.H - window.scrollY > this.OFFSET &&
+        window.scrollY < this.H &&
+        this.H > 0
+      ) {
+        // scrolling up
+        this.H -= window.innerHeight;
+      }
+
+      window.scroll({
+        top: this.H,
+        behavior: "smooth"
+      });
+    }
   }
 }
 

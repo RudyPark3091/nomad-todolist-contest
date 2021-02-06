@@ -1,5 +1,8 @@
 class Modal {
-  constructor(onSubmit) {
+  constructor($todo, todoManager) {
+    this.$todo = $todo;
+    this.tasks = todoManager;
+
     const $modal = document.createElement("div");
     $modal.id = "modal";
     $modal.classList.add("hidden");
@@ -7,6 +10,7 @@ class Modal {
     const $buttonWrapper = document.createElement("div");
     $buttonWrapper.id = "modal-button-wrapper";
 
+    // close button of modal
     const $closeButton = document.createElement("button");
     $closeButton.id = "modal-close";
     $closeButton.addEventListener("click", e => {
@@ -24,10 +28,12 @@ class Modal {
     $buttonWrapper.appendChild(document.createElement("button"));
     $buttonWrapper.appendChild(document.createElement("button"));
 
+    // ok button of Modal
     const $okButton = document.createElement("button");
     $okButton.id = "modal-ok";
     $okButton.innerText = "Ok";
-    $okButton.addEventListener("click", onSubmit);
+    this.onSubmit = this.onSubmit.bind(this);
+    $okButton.addEventListener("click", this.onSubmit);
 
     const $alert = document.createElement("div");
     $alert.style.color = "red";
@@ -39,6 +45,7 @@ class Modal {
     this.$alert = $alert;
     this.$modal = $modal;
 
+    // typing due date on modal
     this.$modal.addEventListener("change", e => {
       const target = e.target;
       if (
@@ -94,6 +101,45 @@ class Modal {
     }
   }
 
+  onSubmit($todo, tasks) {
+    const $title = document.querySelector(".modal-title");
+    const $content = document.querySelector(".modal-content");
+
+    const $year = document.querySelector(".modal-year");
+    const $month = document.querySelector(".modal-month");
+    const $date = document.querySelector(".modal-date");
+
+    const _id = document.querySelector("#modal").dataset.id;
+    const due = `${$year.value}-${$month.value}-${$date.value}`;
+    if (+_id === 0) {
+      this.tasks.create({
+        title: $title.value,
+        content: $content.value,
+        due: due,
+        done: false,
+      });
+    } else {
+      this.tasks.update(_id, {
+        title: $title.value,
+        content: $content.value,
+        due: due,
+      });
+    }
+    this.$todo.render(this.tasks.db);
+    
+    $title.value = "";
+    $content.value = "";
+    $year.value = "";
+    $month.value = "";
+    $date.value = "";
+
+    $year.classList.remove("modal-alert");
+    $month.classList.remove("modal-alert");
+    $date.classList.remove("modal-alert");
+    document.querySelector(".modal-alert-message").innerText = "";
+
+    this.$modal.classList.toggle("hidden");
+  }
 }
 
 export default Modal;
