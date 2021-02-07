@@ -9,10 +9,17 @@ class TodoRenderer {
       e.stopPropagation();
       // deletes todo
       if (e.target.className === "todo-delete") {
+        const yes = confirm("Are you sure to delete all todos?");
+        if (!yes) return;
+
         this.tasks.delete(e.target.dataset.id);
         this.render(this.tasks.db);
         const $items = Array.from(document.querySelectorAll(".landing-todo-wrapper"));
-        $items.filter(item => item.dataset.id === e.target.dataset.id)[0].remove();
+        try {
+          $items.filter(item => item.dataset.id === e.target.dataset.id)[0].remove();
+        } catch(e) {
+          // ignores this error
+        }
       }
       // shows modal for updating todo
       else if (e.target.className === "todo-update") {
@@ -38,12 +45,29 @@ class TodoRenderer {
         $modal.classList.toggle("hidden");
         $modal.dataset.id = 0;
       }
+      // deletes all todos
+      else if (e.target.className === "todo-deleteall-button") {
+        const yes = confirm("Are you sure to delete all todos?");
+        if (!yes) return;
+
+        let $todos = document.querySelectorAll(".todo-wrapper");
+        $todos.forEach($todo => $todo.remove());
+        $todos = document.querySelectorAll(".landing-todo-wrapper");
+        $todos.forEach($todo => $todo.remove());
+        this.tasks.deleteAll();
+        this.render(this.tasks.db);
+      }
     }
 
     const $addButton = document.createElement("button");
     $addButton.classList.add("todo-add-button");
     $addButton.innerText = "+";
     this.$addButton = $addButton;
+
+    const $deleteButton = document.createElement("button");
+    $deleteButton.classList.add("todo-deleteall-button");
+    $deleteButton.innerText = "X";
+    this.$deleteButton = $deleteButton;
 
     this.$container = $container;
   }
@@ -73,6 +97,7 @@ class TodoRenderer {
 
     this.$container.innerHTML = html;
     this.$container.appendChild(this.$addButton);
+    this.$container.appendChild(this.$deleteButton);
     this.$target.appendChild(this.$container);
   }
 }

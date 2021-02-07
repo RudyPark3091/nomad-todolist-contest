@@ -139,6 +139,23 @@ class TodoManager {
     localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
     localStorage.setItem(DB_CAL_KEYWORD, JSON.stringify(this.dbCalendar));
   }
+
+  deleteAll() {
+    this.db = [];
+    this.dbCalendar = {};
+
+    const $dots = document.querySelectorAll(".calendar-dots");
+    $dots.forEach($dot => $dot.remove());
+
+    const $_container = document.querySelector(".landing-todo-container");
+    const $div = document.createElement("div");
+    $div.classList.add("landing-todo-empty");
+    $div.innerText = "No to-dos this month!";
+    $_container.appendChild($div);
+
+    localStorage.setItem(DB_KEYWORD, JSON.stringify(this.db));
+    localStorage.setItem(DB_CAL_KEYWORD, JSON.stringify(this.dbCalendar));
+  }
 }
 
 export default TodoManager;

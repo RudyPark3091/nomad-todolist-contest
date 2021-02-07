@@ -19,6 +19,7 @@
   display: none;
 }
 
+.todo-deleteall-button,
 .todo-add-button {
   width: 30px;
   height: 30px;
@@ -28,11 +29,16 @@
   border-radius: 50%;
   background-color: transparent;
   position: fixed;
-  top: 5vh;
-  right: 5vw;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
 }
 
+.todo-deleteall-button {
+  right: 70px;
+}
+
+.todo-deleteall-button:focus,
 .todo-add-button:focus {
   outline: none;
 }
@@ -43,6 +49,7 @@
 }
 
 .todo-empty {
+  color: #888;
   display: flex;
   justify-content: center;
   align-items: center;

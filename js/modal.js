@@ -103,6 +103,7 @@ class Modal {
     }
   }
 
+  // triggered by clicking ok button of modal
   onSubmit($todoRenderer, tasks) {
     document.body.style.overflow = "scroll";
     const $title = document.querySelector(".modal-title");

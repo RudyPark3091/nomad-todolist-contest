@@ -40,6 +40,7 @@ class LandingTodo {
     if (0 < endNum && endNum <= 3) {
       suffix = suffixes[endNum - 1];
     }
+    if (date === 11 || date === 12 || date === 13) suffix = "th";
     return suffix;
   }
 
@@ -47,7 +48,7 @@ class LandingTodo {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
     this.$label.innerText =
-      `< To-dos of this month - ${this.getMonthName(month)} >`;
+      `To-dos of this month - ${this.getMonthName(month)}`;
 
     this.$items = [];
     this.tasks.db.forEach(todo => {
