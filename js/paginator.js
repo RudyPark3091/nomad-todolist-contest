@@ -12,16 +12,6 @@ class Paginator {
     this.tick = null;
     this.isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
 
-    window.onload = _ => {
-      document.body.style.overflowY = "scroll";
-    }
-
-    window.onresize = _ => {
-      this.H = 0;
-      window.scroll({ top: 0, behavior: "smooth" });
-      document.body.style.overflowY = "scroll";
-    }
-
     this.onScroll = this.onScroll.bind(this);
   }
 

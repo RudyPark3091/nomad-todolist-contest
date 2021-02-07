@@ -13,6 +13,22 @@ class Renderer {
     this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
     this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.tasks);
     this.$modal = new Modal(this.$todoRenderer, this.tasks, this.$landing, this.$calendar);
+
+    window.onload = _ => {
+      document.body.style.overflowY = "scroll";
+    }
+
+    window.onresize = _ => {
+      this.H = 0;
+      window.scroll({ top: 0, behavior: "smooth" });
+      document.body.style.overflowY = "scroll";
+
+      if (window.innerWidth < window.innerHeight) {
+        document.querySelector("#landing").classList.add("vertical");
+      } else {
+        document.querySelector("#landing").classList.remove("vertical");
+      }
+    }
   }
 
   render() {
