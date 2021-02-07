@@ -2,10 +2,16 @@ class Paginator {
   constructor() {
     // HTML elements being paginated
     this.$items = [];
-    // length of item;
+    // length of $items;
     this.count = 0;
-    // present scroll amount
+    // presents scroll amount
     this.H = 0;
+    // amount of pixel to activate scroll
+    this.OFFSET = 1;
+    // variable for scroll debouncing
+    this.tick = null;
+    this.isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
+
     window.onload = _ => {
       document.body.style.overflowY = "scroll";
     }
@@ -15,13 +21,8 @@ class Paginator {
       window.scroll({ top: 0, behavior: "smooth" });
       document.body.style.overflowY = "scroll";
     }
-    // amount of pixel to activate scroll
-    this.OFFSET = 1;
-    // variable for scroll debouncing
-    this.tick = null;
 
     this.onScroll = this.onScroll.bind(this);
-    document.body.onscroll = this.onScroll;
   }
 
   add($item) {
@@ -33,38 +34,34 @@ class Paginator {
     this.$items.forEach(item => {
       item.classList.add("paginated");
     });
+
+    document.body.onscroll = this.onScroll;
   }
 
   onScroll() {
-    document.body.style.overflowY = "scroll";
-
     let scroll = !this.tick;
     clearTimeout(this.tick);
-    document.body.style.overflowY = "hidden";
+    document.body.style.overflow = "hidden";
 
     this.tick = setTimeout(_ => {
       this.tick = null
-      document.body.style.overflowY = "scroll";
-    }, 500);
+      document.body.style.overflow = "scroll";
+    }, this.isChrome ? 500 : 1000);
+
     if (scroll) {
       if (
         window.scrollY - this.H >= this.OFFSET &&
         window.scrollY > this.H
       ) {
-        // scrolling down
         this.H += window.innerHeight;
       } else if (
         this.H - window.scrollY >= this.OFFSET &&
         window.scrollY < this.H
       ) {
-        // scrolling up
         this.H -= window.innerHeight;
       }
 
-      window.scroll({
-        top: this.H,
-        behavior: "smooth"
-      });
+      window.scroll({ top: this.H, behavior: "smooth" });
     }
   }
 }

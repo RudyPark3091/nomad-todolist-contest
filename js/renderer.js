@@ -20,6 +20,7 @@ class Renderer {
     this.$calendar.render();
     this.$todo.render(this.tasks.db);
     this.$modal.render();
+
     this.$paginator.add(document.querySelector("#landing"));
     this.$paginator.add(this.$calendar.$target);
     this.$paginator.add(this.$todo.$target);
