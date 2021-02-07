@@ -19,9 +19,16 @@ class TodoRenderer {
         const $tooltip = document.querySelector(
           `.calendar-tooltip > div[data-id="${e.target.dataset.id}"]`
         );
-        const $parent = $tooltip.parentElement;
-        $tooltip.remove();
-        if (!$parent.hasChildNodes()) $parent.remove();
+        try {
+          const $parent = $tooltip.parentElement;
+          $tooltip.remove();
+          if (!$parent.hasChildNodes()) $parent.remove();
+        } catch(e) {
+          // ignores this error
+          // if present calendar view is not same with
+          // deleting todo's due month above removal of
+          // element will make error
+        }
 
         // remove todo's of this month
         const $items = Array.from(document.querySelectorAll(".landing-todo-wrapper"));
@@ -31,7 +38,7 @@ class TodoRenderer {
         } catch(e) {
           // ignores this error
           // if deleting todo's due month is not this month
-          // node removal above will emit error
+          // element removal above will make error
         }
       }
       // shows modal for updating todo
