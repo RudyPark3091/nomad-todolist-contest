@@ -4,13 +4,16 @@ class TodoRenderer {
     this.tasks = todoManager;
     const $container = document.createElement("div");
     $container.classList.add("todo-container");
-    $container.onscroll = e => e.stopPropagation();
+
     $container.onclick = e => {
       e.stopPropagation();
       if (e.target.className === "todo-delete") {
         this.tasks.delete(e.target.dataset.id);
         this.render(this.tasks.db);
-      } else if (e.target.className === "todo-update") {
+      }
+      else if (e.target.className === "todo-update") {
+        document.body.style.overflow = "hidden";
+
         const $modal = document.querySelector("#modal");
         $modal.classList.toggle("hidden");
         const _id = e.target.dataset.id;
@@ -23,7 +26,9 @@ class TodoRenderer {
         $modal.querySelector(".modal-year").value = _due[0];
         $modal.querySelector(".modal-month").value = _due[1];
         $modal.querySelector(".modal-date").value = _due[2];
-      } else if (e.target.className === "todo-add-button") {
+      }
+      else if (e.target.className === "todo-add-button") {
+        document.body.style.overflow = "hidden";
         const $modal = document.querySelector("#modal");
         $modal.classList.toggle("hidden");
         $modal.dataset.id = 0;

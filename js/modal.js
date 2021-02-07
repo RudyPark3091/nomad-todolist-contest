@@ -14,6 +14,7 @@ class Modal {
     const $closeButton = document.createElement("button");
     $closeButton.id = "modal-close";
     $closeButton.addEventListener("click", e => {
+      document.body.style.overflow = "scroll";
       $modal.classList.toggle("hidden");
       const $inputs = document.querySelectorAll("input");
       $inputs.forEach(input => {
@@ -102,6 +103,7 @@ class Modal {
   }
 
   onSubmit($todo, tasks) {
+    document.body.style.overflow = "scroll";
     const $title = document.querySelector(".modal-title");
     const $content = document.querySelector(".modal-content");
 

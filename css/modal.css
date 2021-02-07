@@ -78,6 +78,7 @@
   border-radius: 5px;
   background-color: #fff;
   resize: none;
+  padding: 3px 8px;
 }
 
 #modal input:focus,
@@ -125,7 +126,7 @@
   #modal {
     --width: 80vw;
     --height: 70vh;
-    --padding: 0px;
+    --padding: 3%;
   }
 
   #modal textarea.modal-content {

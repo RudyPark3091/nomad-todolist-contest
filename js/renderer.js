@@ -7,9 +7,9 @@ import Modal from "./modal.js";
 
 class Renderer {
   constructor() {
-    this.$landing = new Landing(document.querySelector("#landing"));
     this.$paginator = new Paginator();
     this.tasks = new TodoManager();
+    this.$landing = new Landing(document.querySelector("#landing"), this.tasks);
     this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
     this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
     this.$modal = new Modal(this.$todo, this.tasks);

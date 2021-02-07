@@ -4,3 +4,41 @@
   justify-content: center;
   align-items: center;
 }
+
+.landing-todo-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#landing .landing-todo-container {
+  width: 40vw;
+  height: 80vh;
+  border-left: 1px solid #000;
+  margin-left: 10vw;
+  padding-left: 5vw;
+}
+
+.landing-todo-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  #landing {
+    flex-direction: column;
+  }
+
+  #landing .landing-todo-container {
+    width: 80vw;
+    height: 60vh;
+    border-left: none;
+    border-top: 1px solid #000;
+    margin-top: 5vh;
+    padding-top: 5vh;
+    margin-left: 0;
+    padding-left: 0;
+  }
+}

@@ -11,7 +11,7 @@ class Clock {
     this.CANVAS_WIDTH = this.PIXEL * 17;
     this.CANVAS_HEIGHT = this.PIXEL * 5;
 
-    this.color = "#888";
+    this.color = "#000";
     this.bgColor = window.getComputedStyle(
       document.querySelector("#landing")
     ).backgroundColor;
