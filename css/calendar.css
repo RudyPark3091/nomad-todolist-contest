@@ -60,6 +60,27 @@
   margin-top: 45px;
 }
 
+.calendar-tooltip {
+  color: #000;
+  background-color: whitesmoke;
+  font-size: 1rem;
+  display: none;
+  position: absolute;
+  padding: 10px;
+  top: 10px;
+  width: 20vw;
+  z-index: 999;
+  word-break: break-all;
+}
+
+.calendar-tooltip > div::before {
+  content: "+ "
+}
+
+.calendar-container > div:hover .calendar-tooltip {
+  display: block;
+}
+
 .calendar-dots {
   width: 4px;
   height: 4px;

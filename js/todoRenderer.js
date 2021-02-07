@@ -9,16 +9,29 @@ class TodoRenderer {
       e.stopPropagation();
       // deletes todo
       if (e.target.className === "todo-delete") {
-        const yes = confirm("Are you sure to delete all todos?");
+        const yes = confirm("Are you sure to delete this todo?");
         if (!yes) return;
 
         this.tasks.delete(e.target.dataset.id);
         this.render(this.tasks.db);
+
+        // remove tooltips
+        const $tooltip = document.querySelector(
+          `.calendar-tooltip > div[data-id="${e.target.dataset.id}"]`
+        );
+        const $parent = $tooltip.parentElement;
+        $tooltip.remove();
+        if (!$parent.hasChildNodes()) $parent.remove();
+
+        // remove todo's of this month
         const $items = Array.from(document.querySelectorAll(".landing-todo-wrapper"));
+
         try {
           $items.filter(item => item.dataset.id === e.target.dataset.id)[0].remove();
         } catch(e) {
           // ignores this error
+          // if deleting todo's due month is not this month
+          // node removal above will emit error
         }
       }
       // shows modal for updating todo
@@ -76,7 +89,7 @@ class TodoRenderer {
     let html = "";
 
     if (data.length === 0) {
-      html = "<div class=\"todo-empty\">No to-dos yet!<br>Click on top right button and add one :)</div>"
+      html = "<div class=\"todo-empty\">No to-dos yet!<br>Click on top right button and add one :)</div>";
       this.$container.classList.add("todo-empty");
     } else {
       data.forEach(item => {

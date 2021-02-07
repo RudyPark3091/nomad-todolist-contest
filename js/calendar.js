@@ -90,7 +90,7 @@ class Calendar {
     }
 
     let db;
-    let target, amt, dots;
+    let target, amt, isDots;
     let idx = 0;
 
     try {
@@ -98,23 +98,25 @@ class Calendar {
       if (db !== undefined) {
         target = Object.keys(db);
         amt = Object.values(db)
-        dots = true;
+        isDots = true;
       }
     } catch(e) {
-      dots = false;
+      isDots = false;
     }
 
+    // rendering days on calendar
     days.forEach(day => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
 
+      // rendering dots on each days
       const $dot = document.createElement("div");
       $dot.classList.add("calendar-dots-wrapper");
       $dot.classList.add(`calendar-day-${day}`);
 
-      if (dots && day === +target[idx]) {
+      if (isDots && day === +target[idx]) {
         
         for (let i = 0; i < amt[idx]; i++) {
           const $d = document.createElement("div");
@@ -125,7 +127,26 @@ class Calendar {
         idx += 1;
       }
 
+      // preparing tooltips
+      let $tooltip;
+
+      const filteredTodo = this.tasks.db.filter(todo => {
+        $tooltip = document.createElement("div");
+        $tooltip.classList.add("calendar-tooltip");
+
+        const [_year, _month, _date] = this.tasks.parseDue(todo.due);
+        return _year === this.date.getFullYear() &&
+          _month === this.date.getMonth() + 1 &&
+          _date === day;
+      });
+      filteredTodo.forEach(todo => {
+        $tooltip.innerHTML += `<div data-id="${todo.id}">${todo.content}</div>`
+        $tooltip.style.left = "0px";
+      });
+
       $div.appendChild($dot);
+      if (filteredTodo.length !== 0) $dot.appendChild($tooltip);
+
       $container.appendChild($div);
     });
 
@@ -151,6 +172,8 @@ class Calendar {
     $wrapper.appendChild($prevButton);
     $wrapper.appendChild(this.$label);
     $wrapper.appendChild($nextButton);
+
+    this.$target.innerHTML = "";
 
     this.$target.appendChild($wrapper);
     this.$target.appendChild(this.$container);

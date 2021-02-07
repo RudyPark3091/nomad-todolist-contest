@@ -1,8 +1,9 @@
 class Modal {
-  constructor($todoRenderer, todoManager, $landing) {
+  constructor($todoRenderer, todoManager, $landing, $calendar) {
     this.$todoRenderer = $todoRenderer;
     this.tasks = todoManager;
     this.$landing = $landing;
+    this.$calendar = $calendar;
 
     const $modal = document.createElement("div");
     $modal.id = "modal";
@@ -130,6 +131,12 @@ class Modal {
       });
     }
     this.$todoRenderer.render(this.tasks.db);
+    this.$calendar.init(
+      this.$calendar.date,
+      this.$calendar.date.getFullYear() === this.$calendar.today.getFullYear() &&
+      this.$calendar.date.getMonth() === this.$calendar.today.getMonth()
+    );
+    this.$calendar.render();
     this.$landing.$landingTodo.render();
     
     $title.value = "";
