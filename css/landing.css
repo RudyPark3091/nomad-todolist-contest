@@ -45,6 +45,12 @@
   padding-left: 0;
 }
 
+.landing-todo-empty {
+  text-align: center;
+  margin-top: 35vh;
+  color: #888;
+}
+
 .landing-todo-wrapper {
   display: grid;
   grid-template-columns: 4fr 1fr;

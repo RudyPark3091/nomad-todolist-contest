@@ -62,18 +62,26 @@ class LandingTodo {
     });
 
     this.$container.appendChild(this.$label);
-    this.$items.forEach(todo => {
+
+    if (this.$items.length === 0) {
       const $div = document.createElement("div");
-      $div.classList.add("landing-todo-wrapper");
-      $div.dataset.id = todo.id;
-
-      const $span = document.createElement("div");
-      $span.innerText = `by ${todo.date}${this.getSuffix(todo.date)}`;
-      $div.innerText = todo.content;
-      $div.appendChild($span);
-
+      $div.classList.add("landing-todo-empty");
+      $div.innerText = "No to-dos this month!";
       this.$container.appendChild($div);
-    });
+    } else {
+      this.$items.forEach(todo => {
+        const $div = document.createElement("div");
+        $div.classList.add("landing-todo-wrapper");
+        $div.dataset.id = todo.id;
+  
+        const $span = document.createElement("div");
+        $span.innerText = `by ${todo.date}${this.getSuffix(todo.date)}`;
+        $div.innerText = todo.content;
+        $div.appendChild($span);
+  
+        this.$container.appendChild($div);
+      });
+    }
   }
 
   render() {

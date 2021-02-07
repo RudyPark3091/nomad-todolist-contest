@@ -51,19 +51,25 @@ class TodoRenderer {
   render(data) {
     let html = "";
 
-    data.forEach(item => {
-      html += `
-      <div class="todo-wrapper">
-        <button data-id="${item.id}" class="todo-delete"></button>
-        <button data-id="${item.id}" class="todo-update"></button>
-        <div class="todo-due">${item.due}</div>
-        <div class="todo-item">
-          ${item.title ? `<span class="todo-title">${item.title}</span>` : ""}
-          <span class="todo-content">${item.content}</span>
+    if (data.length === 0) {
+      html = "<div class=\"todo-empty\">No to-dos yet!<br>Click on top right button and add one :)</div>"
+      this.$container.classList.add("todo-empty");
+    } else {
+      data.forEach(item => {
+        html += `
+        <div class="todo-wrapper">
+          <button data-id="${item.id}" class="todo-delete"></button>
+          <button data-id="${item.id}" class="todo-update"></button>
+          <div class="todo-due">${item.due}</div>
+          <div class="todo-item">
+            ${item.title ? `<span class="todo-title">${item.title}</span>` : ""}
+            ${item.content ? `<span class="todo-content">${item.content}</span>` : ""}
+          </div>
         </div>
-      </div>
-      `;
-    })
+        `;
+      });
+      this.$container.classList.remove("todo-empty");
+    }
 
     this.$container.innerHTML = html;
     this.$container.appendChild(this.$addButton);

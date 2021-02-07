@@ -27,13 +27,25 @@
   border: 3px solid #bbb;
   border-radius: 50%;
   background-color: transparent;
-  position: absolute;
+  position: fixed;
+  top: 5vh;
   right: 5vw;
   cursor: pointer;
 }
 
 .todo-add-button:focus {
   outline: none;
+}
+
+.todo-container > .todo-empty {
+  width: 100%;
+  height: 100%;
+}
+
+.todo-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .todo-wrapper {
