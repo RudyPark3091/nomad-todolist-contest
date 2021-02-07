@@ -4,22 +4,18 @@ class LandingTodo {
     this.tasks = tasks;
     this.$items = [];
 
-    const $label = document.createElement("div");
-    $label.classList.add("landing-todo-label");
-    this.$label = $label;
-
-    this.$container.appendChild($label);
-
-    this.init();
-  }
-
-  init() {
     const $container = document.createElement("div");
     $container.classList.add("landing-todo-container");
     this.$container = $container;
 
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
+    const $label = document.createElement("div");
+    $label.classList.add("landing-todo-label");
+    this.$label = $label;
+
+    this.$target.appendChild(this.$container);
+  }
+
+  getMonthName(month) {
     const monthNames = [
       "January",
       "February",
@@ -34,30 +30,45 @@ class LandingTodo {
       "November",
       "December",
     ];
-    this.$label.innerText = `< To-dos of this month - ${monthNames[month - 1]} >`;
+    return monthNames[month - 1];
+  }
 
+  getSuffix(date) {
+    const suffixes = ["st", "nd", "rd"];
+    let suffix = "th";
+    const endNum = date % 10;
+    if (0 < endNum && endNum <= 3) {
+      suffix = suffixes[endNum - 1];
+    }
+    return suffix;
+  }
+
+  init() {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    this.$label.innerText =
+      `< To-dos of this month - ${this.getMonthName(month)} >`;
+
+    this.$items = [];
     this.tasks.db.forEach(todo => {
       const [_year, _month, _date] = this.tasks.parseDue(todo.due);
       if (_year === year && _month === month) {
         this.$items.push({
+          id: todo.id,
           date: _date,
           content: todo.content
         });
       }
     });
 
+    this.$container.appendChild(this.$label);
     this.$items.forEach(todo => {
       const $div = document.createElement("div");
       $div.classList.add("landing-todo-wrapper");
+      $div.dataset.id = todo.id;
 
       const $span = document.createElement("div");
-      const suffixes = ["st", "nd", "rd"];
-      let suffix = "th";
-      const endNum = todo.date % 10;
-      if (0 < endNum && endNum <= 3) {
-        suffix = suffixes[endNum - 1];
-      }
-      $span.innerText = `by ${todo.date}${suffix}`;
+      $span.innerText = `by ${todo.date}${this.getSuffix(todo.date)}`;
       $div.innerText = todo.content;
       $div.appendChild($span);
 
@@ -66,6 +77,11 @@ class LandingTodo {
   }
 
   render() {
+    while (this.$container.hasChildNodes()) {
+      this.$container.removeChild(this.$container.childNodes[0]);
+    }
+    this.$target.removeChild(this.$container);
+    this.init();
     this.$target.appendChild(this.$container);
   }
 }

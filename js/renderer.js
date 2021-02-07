@@ -12,7 +12,7 @@ class Renderer {
     this.$landing = new Landing(document.querySelector("#landing"), this.tasks);
     this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
     this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.tasks);
-    this.$modal = new Modal(this.$todoRenderer, this.tasks);
+    this.$modal = new Modal(this.$todoRenderer, this.tasks, this.$landing);
   }
 
   render() {

@@ -1,7 +1,8 @@
 class Modal {
-  constructor($todoRenderer, todoManager) {
+  constructor($todoRenderer, todoManager, $landing) {
     this.$todoRenderer = $todoRenderer;
     this.tasks = todoManager;
+    this.$landing = $landing;
 
     const $modal = document.createElement("div");
     $modal.id = "modal";
@@ -128,6 +129,7 @@ class Modal {
       });
     }
     this.$todoRenderer.render(this.tasks.db);
+    this.$landing.$landingTodo.render();
     
     $title.value = "";
     $content.value = "";

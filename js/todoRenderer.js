@@ -7,10 +7,14 @@ class TodoRenderer {
 
     $container.onclick = e => {
       e.stopPropagation();
+      // deletes todo
       if (e.target.className === "todo-delete") {
         this.tasks.delete(e.target.dataset.id);
         this.render(this.tasks.db);
+        const $items = Array.from(document.querySelectorAll(".landing-todo-wrapper"));
+        $items.filter(item => item.dataset.id === e.target.dataset.id)[0].remove();
       }
+      // shows modal for updating todo
       else if (e.target.className === "todo-update") {
         document.body.style.overflow = "hidden";
 
@@ -27,6 +31,7 @@ class TodoRenderer {
         $modal.querySelector(".modal-month").value = _due[1];
         $modal.querySelector(".modal-date").value = _due[2];
       }
+      // shows modal for adding new todo
       else if (e.target.className === "todo-add-button") {
         document.body.style.overflow = "hidden";
         const $modal = document.querySelector("#modal");
