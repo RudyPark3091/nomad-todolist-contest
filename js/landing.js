@@ -8,6 +8,10 @@ class Landing {
 
     this.$clock = new Clock(this.$target);
     this.$landingTodo = new LandingTodo(this.$target, this.tasks);
+
+    if (window.innerWidth < window.innerHeight) {
+      document.querySelector("#landing").classList.add("vertical");
+    }
   }
 
   render() {

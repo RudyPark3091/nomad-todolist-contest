@@ -1,6 +1,6 @@
 class Modal {
-  constructor($todo, todoManager) {
-    this.$todo = $todo;
+  constructor($todoRenderer, todoManager) {
+    this.$todoRenderer = $todoRenderer;
     this.tasks = todoManager;
 
     const $modal = document.createElement("div");
@@ -102,7 +102,7 @@ class Modal {
     }
   }
 
-  onSubmit($todo, tasks) {
+  onSubmit($todoRenderer, tasks) {
     document.body.style.overflow = "scroll";
     const $title = document.querySelector(".modal-title");
     const $content = document.querySelector(".modal-content");
@@ -127,7 +127,7 @@ class Modal {
         due: due,
       });
     }
-    this.$todo.render(this.tasks.db);
+    this.$todoRenderer.render(this.tasks.db);
     
     $title.value = "";
     $content.value = "";

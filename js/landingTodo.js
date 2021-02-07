@@ -4,10 +4,6 @@ class LandingTodo {
     this.tasks = tasks;
     this.$items = [];
 
-    const $container = document.createElement("div");
-    $container.classList.add("landing-todo-container");
-    this.$container = $container;
-
     const $label = document.createElement("div");
     $label.classList.add("landing-todo-label");
     this.$label = $label;
@@ -18,6 +14,10 @@ class LandingTodo {
   }
 
   init() {
+    const $container = document.createElement("div");
+    $container.classList.add("landing-todo-container");
+    this.$container = $container;
+
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
     const monthNames = [
@@ -34,7 +34,7 @@ class LandingTodo {
       "November",
       "December",
     ];
-    this.$label.innerText = `To-dos of this month - ${monthNames[month - 1]}`;
+    this.$label.innerText = `< To-dos of this month - ${monthNames[month - 1]} >`;
 
     this.tasks.db.forEach(todo => {
       const [_year, _month, _date] = this.tasks.parseDue(todo.due);
@@ -50,9 +50,9 @@ class LandingTodo {
       const $div = document.createElement("div");
       $div.classList.add("landing-todo-wrapper");
 
-      const $span = document.createElement("span");
+      const $span = document.createElement("div");
       const suffixes = ["st", "nd", "rd"];
-      const suffix = "th";
+      let suffix = "th";
       const endNum = todo.date % 10;
       if (0 < endNum && endNum <= 3) {
         suffix = suffixes[endNum - 1];

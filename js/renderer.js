@@ -11,19 +11,19 @@ class Renderer {
     this.tasks = new TodoManager();
     this.$landing = new Landing(document.querySelector("#landing"), this.tasks);
     this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
-    this.$todo = new TodoRenderer(document.querySelector("#todo"), this.tasks);
-    this.$modal = new Modal(this.$todo, this.tasks);
+    this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.tasks);
+    this.$modal = new Modal(this.$todoRenderer, this.tasks);
   }
 
   render() {
     this.$landing.render();
     this.$calendar.render();
-    this.$todo.render(this.tasks.db);
+    this.$todoRenderer.render(this.tasks.db);
     this.$modal.render();
 
     this.$paginator.add(document.querySelector("#landing"));
     this.$paginator.add(this.$calendar.$target);
-    this.$paginator.add(this.$todo.$target);
+    this.$paginator.add(this.$todoRenderer.$target);
     this.$paginator.init();
   }
 }
