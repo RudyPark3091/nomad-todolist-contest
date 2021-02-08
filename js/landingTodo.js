@@ -8,6 +8,11 @@ class LandingTodo {
     $container.classList.add("landing-todo-container");
     this.$container = $container;
 
+    const $empty = document.createElement("div");
+    $empty.classList.add("landing-todo-empty");
+    $empty.innerText = "No to-dos this month!";
+    this.$empty = $empty;
+
     const $label = document.createElement("div");
     $label.classList.add("landing-todo-label");
     this.$label = $label;
@@ -65,10 +70,10 @@ class LandingTodo {
     this.$container.appendChild(this.$label);
 
     if (this.$items.length === 0) {
-      const $div = document.createElement("div");
-      $div.classList.add("landing-todo-empty");
-      $div.innerText = "No to-dos this month!";
-      this.$container.appendChild($div);
+      // const $div = document.createElement("div");
+      // $div.classList.add("landing-todo-empty");
+      // $div.innerText = "No to-dos this month!";
+      this.$container.appendChild(this.$empty);
     } else {
       this.$items.forEach(todo => {
         const $div = document.createElement("div");
