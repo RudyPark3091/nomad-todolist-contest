@@ -33,9 +33,19 @@ class Clock {
   }
 
   render() {
+    this.$target.appendChild(this.$canvas);
+  }
+
+  clearSeparator() {
+    this.ctx.fillStyle = this.bgColor;
     this.ctx.fillRect(this.PIXEL * 8, this.PIXEL, this.PIXEL, this.PIXEL);
     this.ctx.fillRect(this.PIXEL * 8, this.PIXEL * 3, this.PIXEL, this.PIXEL);
-    this.$target.appendChild(this.$canvas);
+    this.ctx.fillStyle = this.color;
+  }
+
+  drawSeparator() {
+    this.ctx.fillRect(this.PIXEL * 8, this.PIXEL, this.PIXEL, this.PIXEL);
+    this.ctx.fillRect(this.PIXEL * 8, this.PIXEL * 3, this.PIXEL, this.PIXEL);
   }
 
   draw(num, pos) {
@@ -188,6 +198,9 @@ class Clock {
     const date = new Date();
     const hour = date.getHours();
     const minute = date.getMinutes();
+    const sec = date.getSeconds();
+
+    sec % 2 === 0 ? this.drawSeparator() : this.clearSeparator();
 
     if (hour !== this.hour) {
       const slot1 = 0;

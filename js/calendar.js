@@ -105,11 +105,15 @@ class Calendar {
     }
 
     // rendering days on calendar
-    days.forEach(day => {
+    days.forEach((day, i) => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
+      if (i % 7 === 0) $div.classList.add("calendar-sunday");
+      if (i % 7 === 6) $div.classList.add("calendar-saturday");
+      if (i % 7 >= 4) $div.classList.add("calendar-tooltip-right");
+      else $div.classList.add("calendar-tooltip-left")
 
       // rendering dots on each days
       const $dot = document.createElement("div");
@@ -141,7 +145,6 @@ class Calendar {
       });
       filteredTodo.forEach(todo => {
         $tooltip.innerHTML += `<div data-id="${todo.id}">${todo.content}</div>`
-        $tooltip.style.left = "0px";
       });
 
       $div.appendChild($dot);

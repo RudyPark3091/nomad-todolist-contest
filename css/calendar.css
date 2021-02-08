@@ -46,6 +46,14 @@
   align-items: center;
 }
 
+.calendar-sunday {
+  color: rgb(238, 107, 95);
+}
+
+.calendar-saturday {
+  color: rgb(95, 107, 238);
+}
+
 .calendar-dots-wrapper {
   width: 24px;
   display: flex;
@@ -63,21 +71,27 @@
 .calendar-tooltip {
   color: #000;
   background-color: whitesmoke;
-  font-size: 1rem;
+  font-size: 0.8rem;
   display: none;
   position: absolute;
   padding: 10px;
   top: 10px;
-  width: 20vw;
+  min-width: 30vw;
   z-index: 999;
   word-break: break-all;
 }
 
 .calendar-tooltip > div::before {
-  content: "+ "
+  content: "- "
 }
 
-.calendar-container > div:hover .calendar-tooltip {
+.calendar-container > div.calendar-tooltip-left:hover .calendar-tooltip {
+  left: 0px;
+  display: block;
+}
+
+.calendar-container > div.calendar-tooltip-right:hover .calendar-tooltip {
+  right: 0px;
   display: block;
 }
 
@@ -91,4 +105,10 @@
 .calendar-container .calendar-today {
   font-size: 3rem;
   color: darkorange;
+}
+
+@media (max-width: 900px) {
+  .calendar-tooltip {
+    width: 50vw;
+  }
 }
