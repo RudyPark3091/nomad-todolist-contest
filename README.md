@@ -1,5 +1,6 @@
 # nomad-todolist-contest
-link: [Github Pages]
+A simple To-do list application with **BIG THANKYOU TO [@Nomad Coders]**  
+> link: [Github Pages]
 
 ## screenshots
 <img src="./assets/img/1.gif" height="300">
@@ -14,4 +15,5 @@ link: [Github Pages]
 - modals for input
 - etc
 
+[@Nomad Coders]: https://github.com/nomadcoders
 [Github Pages]: https://rudypark3091.github.io/nomad-todolist-contest
