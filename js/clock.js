@@ -1,3 +1,5 @@
+// Clock renders clock on main page of application
+
 // to render numbers properly,
 // make sure $target's background color is
 // not transparent

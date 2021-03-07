@@ -1,3 +1,7 @@
+// TodoManager manages 'todo items' of
+// application at the top level
+// every data about 'todo item' should go through this class
+
 const DB_KEYWORD = "rudy-todos";
 const DB_CAL_KEYWORD = "rudy-todos-calendar";
 

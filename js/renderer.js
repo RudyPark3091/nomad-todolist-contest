@@ -1,6 +1,9 @@
 import Landing from "./landing.js";
 import Calendar from "./calendar.js";
 import Paginator from "./paginator.js";
+// Renderer is top level component that contains
+// all the other child components
+
 import TodoManager from "./todoManager.js";
 import TodoRenderer from "./todoRenderer.js";
 import Modal from "./modal.js";

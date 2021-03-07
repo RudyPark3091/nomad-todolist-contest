@@ -1,3 +1,6 @@
+// Paginator makes application 'one-page-scrollable'
+// not needed if application would be refactored to a SPA
+
 class Paginator {
   constructor() {
     // HTML elements being paginated

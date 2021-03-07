@@ -1,3 +1,5 @@
+// not needed in javascript (not typescript)
+
 class Todo {
   constructor({ id, title, content, due, done }) {
     this.id = id;

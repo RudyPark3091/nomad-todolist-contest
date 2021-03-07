@@ -1,3 +1,6 @@
+// Modal gets and validates user inputs
+// then pass them to todoRenderer for rendering 'todo items'
+
 class Modal {
   constructor($todoRenderer, todoManager, $landing, $calendar) {
     this.$todoRenderer = $todoRenderer;
@@ -15,11 +18,11 @@ class Modal {
     // close button of modal
     const $closeButton = document.createElement("button");
     $closeButton.id = "modal-close";
-    $closeButton.addEventListener("click", e => {
+    $closeButton.addEventListener("click", (e) => {
       document.body.style.overflow = "scroll";
       $modal.classList.toggle("hidden");
       const $inputs = document.querySelectorAll("input");
-      $inputs.forEach(input => {
+      $inputs.forEach((input) => {
         input.value = "";
         input.classList.remove("modal-alert");
       });
@@ -49,20 +52,23 @@ class Modal {
     this.$modal = $modal;
 
     // typing due date on modal
-    this.$modal.addEventListener("change", e => {
+    this.$modal.addEventListener("change", (e) => {
       const target = e.target;
       if (
-        target.classList[0] === "modal-year" ||
-        target.classList[0] === "modal-month" ||
-        target.classList[0] === "modal-date"
+        target.classList.contains("modal-year") ||
+        target.classList.contains("modal-month") ||
+        target.classList.contains("modal-date")
       ) {
         if (isNaN(parseInt(target.value))) {
           target.classList.add("modal-alert");
           $alert.innerText = "This todo won't be in the calendar";
         } else {
-          const yes = this.validate(target.classList[0].split("-")[1], +target.value);
-          if (yes) {
-            target.classList.remove("modal-alert")
+          const isValidDateFormat = this.validateDateFormat(
+            target.classList[0].split("-")[1],
+            +target.value
+          );
+          if (isValidDateFormat) {
+            target.classList.remove("modal-alert");
             $alert.innerText = "";
           } else {
             if (target.classList[1] !== "modal-alert")
@@ -94,13 +100,13 @@ class Modal {
     document.body.appendChild(this.$modal);
   }
 
-  validate(context, num) {
+  validateDateFormat(context, num) {
     if (context === "year") {
-      return (num.toString().length === 4 ? true : false);
+      return num.toString().length === 4 ? true : false;
     } else if (context === "month") {
-      return (0 < num && num <= 12 ? true : false);
+      return 0 < num && num <= 12 ? true : false;
     } else if (context === "date") {
-      return (0 < num && num <= 31 ? true : false);
+      return 0 < num && num <= 31 ? true : false;
     }
   }
 
@@ -133,12 +139,13 @@ class Modal {
     this.$todoRenderer.render(this.todoManager.db);
     this.$calendar.init(
       this.$calendar.date,
-      this.$calendar.date.getFullYear() === this.$calendar.today.getFullYear() &&
-      this.$calendar.date.getMonth() === this.$calendar.today.getMonth()
+      this.$calendar.date.getFullYear() ===
+        this.$calendar.today.getFullYear() &&
+        this.$calendar.date.getMonth() === this.$calendar.today.getMonth()
     );
     this.$calendar.render();
     this.$landing.$landingTodo.render();
-    
+
     $title.value = "";
     $content.value = "";
     $year.value = "";

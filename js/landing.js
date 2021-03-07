@@ -1,3 +1,6 @@
+// Landing manages main page of application
+// contains clock and 'todo items of the month'
+
 import Clock from "./clock.js";
 import LandingTodo from "./landingTodo.js";
 

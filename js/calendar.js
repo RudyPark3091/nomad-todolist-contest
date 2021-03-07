@@ -1,3 +1,5 @@
+// Calendar literally renders calendar on 2nd page of application
+
 function getLastDay(year, month) {
   switch (month) {
     case 1:

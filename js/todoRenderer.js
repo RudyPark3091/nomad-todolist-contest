@@ -1,3 +1,8 @@
+// TodoRenderer renders 'todo items' on application
+// 1. main page (with clocks) - todo of the month
+// 2. calendar page - dots on each days
+// 3. details page (last page) - details of todo items
+
 class TodoRenderer {
   constructor($target, todoManager) {
     this.$target = $target;

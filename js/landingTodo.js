@@ -1,3 +1,6 @@
+// LandingTodo should be deprecated
+// todoRenderer will do this job
+
 class LandingTodo {
   constructor($target, todoManager) {
     this.$target = $target;
