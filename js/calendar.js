@@ -19,7 +19,7 @@ class Calendar {
 
   constructor($target, todoManager) {
     this.setDate(new Date());
-    this.tasks = todoManager;
+    this.todoManager = todoManager;
 
     const $label = document.createElement("div");
     $label.innerText = `${
@@ -100,7 +100,7 @@ class Calendar {
     let idx = 0;
 
     try {
-      db = this.tasks.dbCalendar[_year][_month + 1];
+      db = this.todoManager.dbCalendar[_year][_month + 1];
       if (db !== undefined) {
         target = Object.keys(db);
         amt = Object.values(db);
@@ -139,11 +139,11 @@ class Calendar {
       // preparing tooltips
       let $tooltip;
 
-      const filteredTodo = this.tasks.db.filter((todo) => {
+      const filteredTodo = this.todoManager.db.filter((todo) => {
         $tooltip = document.createElement("div");
         $tooltip.classList.add("calendar-tooltip");
 
-        const [_year, _month, _date] = this.tasks.parseDue(todo.due);
+        const [_year, _month, _date] = this.todoManager.parseDue(todo.due);
         return (
           _year === this.date.getFullYear() &&
           _month === this.date.getMonth() + 1 &&

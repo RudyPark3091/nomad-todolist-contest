@@ -1,7 +1,7 @@
 class Modal {
   constructor($todoRenderer, todoManager, $landing, $calendar) {
     this.$todoRenderer = $todoRenderer;
-    this.tasks = todoManager;
+    this.todoManager = todoManager;
     this.$landing = $landing;
     this.$calendar = $calendar;
 
@@ -105,7 +105,7 @@ class Modal {
   }
 
   // triggered by clicking ok button of modal
-  onSubmit($todoRenderer, tasks) {
+  onSubmit($todoRenderer, todoManager) {
     document.body.style.overflow = "scroll";
     const $title = document.querySelector(".modal-title");
     const $content = document.querySelector(".modal-content");
@@ -117,20 +117,20 @@ class Modal {
     const _id = document.querySelector("#modal").dataset.id;
     const due = `${$year.value}-${$month.value}-${$date.value}`;
     if (+_id === 0) {
-      this.tasks.create({
+      this.todoManager.create({
         title: $title.value,
         content: $content.value,
         due: due,
         done: false,
       });
     } else {
-      this.tasks.update(_id, {
+      this.todoManager.update(_id, {
         title: $title.value,
         content: $content.value,
         due: due,
       });
     }
-    this.$todoRenderer.render(this.tasks.db);
+    this.$todoRenderer.render(this.todoManager.db);
     this.$calendar.init(
       this.$calendar.date,
       this.$calendar.date.getFullYear() === this.$calendar.today.getFullYear() &&

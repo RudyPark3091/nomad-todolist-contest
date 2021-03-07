@@ -8,11 +8,11 @@ import Modal from "./modal.js";
 class Renderer {
   constructor() {
     this.$paginator = new Paginator();
-    this.tasks = new TodoManager();
-    this.$landing = new Landing(document.querySelector("#landing"), this.tasks);
-    this.$calendar = new Calendar(document.querySelector("#calendar"), this.tasks);
-    this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.tasks);
-    this.$modal = new Modal(this.$todoRenderer, this.tasks, this.$landing, this.$calendar);
+    this.todoManager = new TodoManager();
+    this.$landing = new Landing(document.querySelector("#landing"), this.todoManager);
+    this.$calendar = new Calendar(document.querySelector("#calendar"), this.todoManager);
+    this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.todoManager);
+    this.$modal = new Modal(this.$todoRenderer, this.todoManager, this.$landing, this.$calendar);
 
     window.onload = _ => {
       document.body.style.overflowY = "scroll";
@@ -34,7 +34,7 @@ class Renderer {
   render() {
     this.$landing.render();
     this.$calendar.render();
-    this.$todoRenderer.render(this.tasks.db);
+    this.$todoRenderer.render(this.todoManager.db);
     this.$modal.render();
 
     this.$paginator.add(document.querySelector("#landing"));

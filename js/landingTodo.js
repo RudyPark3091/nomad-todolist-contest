@@ -1,7 +1,7 @@
 class LandingTodo {
-  constructor($target, tasks) {
+  constructor($target, todoManager) {
     this.$target = $target;
-    this.tasks = tasks;
+    this.todoManager = todoManager;
     this.$items = [];
 
     const $container = document.createElement("div");
@@ -52,17 +52,18 @@ class LandingTodo {
   init() {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
-    this.$label.innerText =
-      `To-dos of this month - ${this.getMonthName(month)}`;
+    this.$label.innerText = `To-dos of this month - ${this.getMonthName(
+      month
+    )}`;
 
     this.$items = [];
-    this.tasks.db.forEach(todo => {
-      const [_year, _month, _date] = this.tasks.parseDue(todo.due);
+    this.todoManager.db.forEach((todo) => {
+      const [_year, _month, _date] = this.todoManager.parseDue(todo.due);
       if (_year === year && _month === month) {
         this.$items.push({
           id: todo.id,
           date: _date,
-          content: todo.content
+          content: todo.content,
         });
       }
     });
@@ -75,16 +76,16 @@ class LandingTodo {
       // $div.innerText = "No to-dos this month!";
       this.$container.appendChild(this.$empty);
     } else {
-      this.$items.forEach(todo => {
+      this.$items.forEach((todo) => {
         const $div = document.createElement("div");
         $div.classList.add("landing-todo-wrapper");
         $div.dataset.id = todo.id;
-  
+
         const $span = document.createElement("div");
         $span.innerText = `by ${todo.date}${this.getSuffix(todo.date)}`;
         $div.innerText = todo.content;
         $div.appendChild($span);
-  
+
         this.$container.appendChild($div);
       });
     }
