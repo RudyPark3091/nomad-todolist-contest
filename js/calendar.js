@@ -1,10 +1,14 @@
-const getLastDay = (year, month) => {
-  if (month === 1) {
-    return (year % 4 === 0 ? 29 : 28);
-  } else if (month === 3 || month === 5 || month === 8 || month === 10) {
-    return 30;
-  } else {
-    return 31;
+function getLastDay(year, month) {
+  switch (month) {
+    case 1:
+      return year % 4 === 0 ? 29 : 28;
+    case 3:
+    case 5:
+    case 8:
+    case 10:
+      return 30;
+    default:
+      return 31;
   }
 }
 
@@ -18,8 +22,9 @@ class Calendar {
     this.tasks = todoManager;
 
     const $label = document.createElement("div");
-    $label.innerText =
-      `${this.date.getMonth() + 1} / ${this.date.getFullYear()}`;
+    $label.innerText = `${
+      this.date.getMonth() + 1
+    } / ${this.date.getFullYear()}`;
     this.$label = $label;
 
     this.$target = $target;
@@ -68,8 +73,9 @@ class Calendar {
   }
 
   init(date, isToday) {
-    this.$label.innerText =
-      `${this.date.getMonth() + 1} / ${this.date.getFullYear()}`;
+    this.$label.innerText = `${
+      this.date.getMonth() + 1
+    } / ${this.date.getFullYear()}`;
     const $container = document.createElement("div");
     $container.classList.add("calendar-container");
 
@@ -97,10 +103,10 @@ class Calendar {
       db = this.tasks.dbCalendar[_year][_month + 1];
       if (db !== undefined) {
         target = Object.keys(db);
-        amt = Object.values(db)
+        amt = Object.values(db);
         isDots = true;
       }
-    } catch(e) {
+    } catch (e) {
       isDots = false;
     }
 
@@ -113,7 +119,7 @@ class Calendar {
       if (i % 7 === 0) $div.classList.add("calendar-sunday");
       if (i % 7 === 6) $div.classList.add("calendar-saturday");
       if (i % 7 >= 4) $div.classList.add("calendar-tooltip-right");
-      else $div.classList.add("calendar-tooltip-left")
+      else $div.classList.add("calendar-tooltip-left");
 
       // rendering dots on each days
       const $dot = document.createElement("div");
@@ -121,7 +127,6 @@ class Calendar {
       $dot.classList.add(`calendar-day-${day}`);
 
       if (isDots && day === +target[idx]) {
-        
         for (let i = 0; i < amt[idx]; i++) {
           const $d = document.createElement("div");
           $d.classList.add("calendar-dots");
@@ -134,17 +139,19 @@ class Calendar {
       // preparing tooltips
       let $tooltip;
 
-      const filteredTodo = this.tasks.db.filter(todo => {
+      const filteredTodo = this.tasks.db.filter((todo) => {
         $tooltip = document.createElement("div");
         $tooltip.classList.add("calendar-tooltip");
 
         const [_year, _month, _date] = this.tasks.parseDue(todo.due);
-        return _year === this.date.getFullYear() &&
+        return (
+          _year === this.date.getFullYear() &&
           _month === this.date.getMonth() + 1 &&
-          _date === day;
+          _date === day
+        );
       });
-      filteredTodo.forEach(todo => {
-        $tooltip.innerHTML += `<div data-id="${todo.id}">${todo.content}</div>`
+      filteredTodo.forEach((todo) => {
+        $tooltip.innerHTML += `<div data-id="${todo.id}">${todo.content}</div>`;
       });
 
       $div.appendChild($dot);
