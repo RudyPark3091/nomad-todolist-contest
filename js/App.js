@@ -1,27 +1,41 @@
-import Landing from "./landing.js";
-import Calendar from "./calendar.js";
-import Paginator from "./paginator.js";
-// Renderer is top level component that contains
+// App is top level component that contains
 // all the other child components
 
+import MainPage from "./mainPage.js";
+import Calendar from "./calendar.js";
+import Paginator from "./paginator.js";
 import TodoManager from "./todoManager.js";
 import TodoRenderer from "./todoRenderer.js";
 import Modal from "./modal.js";
 
-class Renderer {
+class App {
   constructor() {
     this.$paginator = new Paginator();
     this.todoManager = new TodoManager();
-    this.$landing = new Landing(document.querySelector("#landing"), this.todoManager);
-    this.$calendar = new Calendar(document.querySelector("#calendar"), this.todoManager);
-    this.$todoRenderer = new TodoRenderer(document.querySelector("#todo"), this.todoManager);
-    this.$modal = new Modal(this.$todoRenderer, this.todoManager, this.$landing, this.$calendar);
+    this.$landing = new MainPage(
+      document.querySelector("#landing"),
+      this.todoManager
+    );
+    this.$calendar = new Calendar(
+      document.querySelector("#calendar"),
+      this.todoManager
+    );
+    this.$todoRenderer = new TodoRenderer(
+      document.querySelector("#todo"),
+      this.todoManager
+    );
+    this.$modal = new Modal(
+      this.$todoRenderer,
+      this.todoManager,
+      this.$landing,
+      this.$calendar
+    );
 
-    window.onload = _ => {
+    window.onload = (_) => {
       document.body.style.overflowY = "scroll";
-    }
+    };
 
-    window.onresize = _ => {
+    window.onresize = (_) => {
       this.H = 0;
       window.scroll({ top: 0, behavior: "smooth" });
       document.body.style.overflowY = "scroll";
@@ -31,7 +45,7 @@ class Renderer {
       } else {
         document.querySelector("#landing").classList.remove("vertical");
       }
-    }
+    };
   }
 
   render() {
@@ -47,4 +61,4 @@ class Renderer {
   }
 }
 
-export default Renderer;
+export default App;

@@ -1,16 +1,16 @@
-// Landing manages main page of application
+// MainPage manages main page of application
 // contains clock and 'todo items of the month'
 
 import Clock from "./clock.js";
 import LandingTodo from "./landingTodo.js";
 
-class Landing {
-  constructor($target, tasks) {
+class MainPage {
+  constructor($target, todoManager) {
     this.$target = $target;
-    this.tasks = tasks;
+    this.todoManager = todoManager;
 
     this.$clock = new Clock(this.$target);
-    this.$landingTodo = new LandingTodo(this.$target, this.tasks);
+    this.$landingTodo = new LandingTodo(this.$target, this.todoManager);
 
     if (window.innerWidth < window.innerHeight) {
       document.querySelector("#landing").classList.add("vertical");
@@ -23,4 +23,4 @@ class Landing {
   }
 }
 
-export default Landing;
+export default MainPage;
