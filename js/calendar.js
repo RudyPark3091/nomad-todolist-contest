@@ -97,68 +97,15 @@ class Calendar {
       days.push(i);
     }
 
-    let db;
-    let target, amt, isDots;
-    let idx = 0;
-
-    try {
-      db = this.todoManager.dbCalendar[_year][_month + 1];
-      if (db !== undefined) {
-        target = Object.keys(db);
-        amt = Object.values(db);
-        isDots = true;
-      }
-    } catch (e) {
-      isDots = false;
-    }
-
     // rendering days on calendar
     days.forEach((day, i) => {
       const $div = document.createElement("div");
       if (day !== -1) $div.innerText = day;
+      $div.classList.add("calendar-day-wrapper");
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
       if (i % 7 === 0) $div.classList.add("calendar-sunday");
       if (i % 7 === 6) $div.classList.add("calendar-saturday");
-      if (i % 7 >= 4) $div.classList.add("calendar-tooltip-right");
-      else $div.classList.add("calendar-tooltip-left");
-
-      // rendering dots on each days
-      const $dot = document.createElement("div");
-      $dot.classList.add("calendar-dots-wrapper");
-      $dot.classList.add(`calendar-day-${day}`);
-
-      if (isDots && day === +target[idx]) {
-        for (let i = 0; i < amt[idx]; i++) {
-          const $d = document.createElement("div");
-          $d.classList.add("calendar-dots");
-          $dot.appendChild($d);
-        }
-
-        idx += 1;
-      }
-
-      // preparing tooltips
-      let $tooltip;
-
-      const filteredTodo = this.todoManager.db.filter((todo) => {
-        $tooltip = document.createElement("div");
-        $tooltip.classList.add("calendar-tooltip");
-
-        const [_year, _month, _date] = this.todoManager.parseDue(todo.due);
-        return (
-          _year === this.date.getFullYear() &&
-          _month === this.date.getMonth() + 1 &&
-          _date === day
-        );
-      });
-      filteredTodo.forEach((todo) => {
-        $tooltip.innerHTML += `<div data-id="${todo.id}">${todo.content}</div>`;
-      });
-
-      $div.appendChild($dot);
-      if (filteredTodo.length !== 0) $dot.appendChild($tooltip);
-
       $container.appendChild($div);
     });
 
