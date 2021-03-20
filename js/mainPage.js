@@ -10,7 +10,7 @@ class MainPage {
     this.todoManager = todoManager;
 
     this.$clock = new Clock(this.$target);
-    this.$landingTodo = new MainTodoRenderer(this.$target, this.todoManager);
+    // this.$landingTodo = new MainTodoRenderer(this.$target, this.todoManager);
 
     if (window.innerWidth < window.innerHeight) {
       document.querySelector("#landing").classList.add("vertical");
@@ -19,7 +19,7 @@ class MainPage {
 
   render() {
     this.$clock.render();
-    this.$landingTodo.render();
+    // this.$landingTodo.render();
   }
 }
 

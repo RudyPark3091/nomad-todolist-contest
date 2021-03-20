@@ -6,7 +6,9 @@ import Calendar from "./calendar.js";
 import Paginator from "./paginator.js";
 import TodoManager from "./todoManager.js";
 import TodoRenderer from "./todoRenderer.js";
+import { TodoRendererTemp } from "./todoRenderer.js";
 import Modal from "./modal.js";
+import DetailPage from "./detailPage.js";
 
 class App {
   constructor() {
@@ -20,27 +22,41 @@ class App {
       document.querySelector("#calendar"),
       this.todoManager
     );
-    this.$todoRenderer = new TodoRenderer(
+    this.$detailPage = new DetailPage(
       document.querySelector("#todo"),
       this.todoManager
     );
+    // this.$todoRenderer = new TodoRenderer(
+    //   document.querySelector("#todo"),
+    //   this.todoManager
+    // );
     this.$modal = new Modal(
       this.$todoRenderer,
       this.todoManager,
       this.$landing,
       this.$calendar
     );
+
+    this.$todoTemp = new TodoRendererTemp(
+      this.$landing.$target,
+      this.$calendar,
+      this.$detailPage,
+      this.todoManager
+    );
+    this.$calendar.setRenderer(todo.calendarTodoRenderer);
   }
 
   render() {
     this.$landing.render();
     this.$calendar.render();
-    this.$todoRenderer.render(this.todoManager.db);
+    this.$detailPage.render();
     this.$modal.render();
+
+    this.$todoTemp.render();
 
     this.$paginator.add(document.querySelector("#landing"));
     this.$paginator.add(this.$calendar.$target);
-    this.$paginator.add(this.$todoRenderer.$target);
+    this.$paginator.add(this.$detailPage.$target);
     this.$paginator.init();
   }
 }

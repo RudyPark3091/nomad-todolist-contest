@@ -15,9 +15,10 @@ function getLastDay(year, month) {
 }
 
 class Calendar {
-  date = null;
+  date = new Date();
   container = null;
   today = new Date();
+  calendarTodoRenderer;
 
   constructor($target, todoManager) {
     this.setDate(new Date());
@@ -41,11 +42,18 @@ class Calendar {
     this.date = date;
   }
 
+  setRenderer(renderer) {
+    this.calendarTodoRenderer = renderer;
+  }
+
   handlePrevMonth(e) {
     const year = this.date.getFullYear();
     const month = this.date.getMonth();
     const newYear = month === 0 ? year - 1 : year;
     const newMonth = month === 0 ? 11 : month - 1;
+
+    this.calendarTodoRenderer.setMonth(newMonth);
+    this.calendarTodoRenderer.setYear(newYear);
 
     const newDate = new Date(newYear, newMonth);
     this.setDate(newDate);
@@ -63,6 +71,9 @@ class Calendar {
     const month = this.date.getMonth();
     const newYear = month === 11 ? year + 1 : year;
     const newMonth = month === 11 ? 0 : month + 1;
+
+    this.calendarTodoRenderer.setMonth(newMonth);
+    this.calendarTodoRenderer.setYear(newYear);
 
     const newDate = new Date(newYear, newMonth);
     this.setDate(newDate);
@@ -100,8 +111,10 @@ class Calendar {
     // rendering days on calendar
     days.forEach((day, i) => {
       const $div = document.createElement("div");
-      if (day !== -1) $div.innerText = day;
-      $div.classList.add("calendar-day-wrapper");
+      if (day !== -1) {
+        $div.innerText = day;
+        $div.classList.add(`calendar-day-wrapper-${day}`);
+      }
       if (isToday && day === this.today.getDate())
         $div.classList.add("calendar-today");
       if (i % 7 === 0) $div.classList.add("calendar-sunday");

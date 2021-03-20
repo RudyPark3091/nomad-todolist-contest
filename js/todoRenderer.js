@@ -3,6 +3,27 @@
 // 2. calendar page - dots on each days
 // 3. details page (last page) - details of todo items
 
+import MainTodoRenderer from "./mainTodoRenderer.js";
+import CalendarTodoRenderer from "./calendarTodoRenderer.js";
+import DetailTodoRenderer from "./detailTodoRenderer.js";
+
+export class TodoRendererTemp {
+  constructor($mainPage, $calendar, $detailPage, todoManager) {
+    this.mainTodoRenderer = new MainTodoRenderer($mainPage, todoManager);
+    this.calendarTodoRenderer = new CalendarTodoRenderer(
+      $calendar,
+      todoManager
+    );
+    this.detailTodoRenderer = new DetailTodoRenderer(todoManager);
+  }
+
+  render() {
+    this.mainTodoRenderer.render();
+    this.calendarTodoRenderer.render();
+    this.detailTodoRenderer.render();
+  }
+}
+
 class TodoRenderer {
   constructor($target, todoManager) {
     this.$target = $target;
@@ -36,9 +57,10 @@ class TodoRenderer {
         }
 
         // remove todo's of this month
-        const $items = Array.from(
-          document.querySelectorAll(".landing-todo-wrapper")
-        );
+        const $items = Array
+          .from
+          // document.querySelectorAll(".landing-todo-wrapper")
+          ();
 
         try {
           $items
