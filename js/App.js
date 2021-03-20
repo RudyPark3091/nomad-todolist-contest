@@ -43,7 +43,7 @@ class App {
       this.$detailPage,
       this.todoManager
     );
-    this.$calendar.setRenderer(todo.calendarTodoRenderer);
+    this.$calendar.setRenderer(this.$todoTemp.calendarTodoRenderer);
   }
 
   render() {
